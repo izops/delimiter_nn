@@ -46,6 +46,16 @@ def CreateOneColumn(pstrIn, pstrOut, pstrDelim, pstrMode):
 
 
 def fstrTreatWord(pstrWord):
+    '''
+    Wraps the word in quotes if it contains potential separators. Escapes double
+    quotes.
+
+    Inputs:
+        pstrWord - string to be treated
+
+    Output:
+        treated string
+    '''
     # copy the word for changes
     strTreated = pstrWord
 
@@ -53,9 +63,10 @@ def fstrTreatWord(pstrWord):
     if strTreated.find('"'):
         strTreated = strTreated.replace('"', '""')
 
-    # try to find comma, semicolon, tab and space
-    if strTreated.find(',') >= 0 or strTreated.find(';') >= 0 or
-        strTreated.find('\t') >= 0 or strTreated.find(' '):
+    # try to find comma, semicolon, tab, two double quotes and space
+    if (strTreated.find(',') >= 0 or strTreated.find(';') >= 0 or
+        strTreated.find('\t') >= 0 or strTreated.find(' ') >= 0 or
+        strTreated.find('""') >= 0):
         # close the word in quotations
         strTreated = '"' + strTreated + '"'
 

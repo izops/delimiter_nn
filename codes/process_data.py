@@ -13,6 +13,19 @@ strPathIn = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn
 strPathOut = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/out1.txt'
 
 def CreateOneColumn(pstrIn, pstrOut, pstrDelim, pstrMode):
+    '''
+    Splits a text file into a one column file by words
+
+    Inputs:
+        pstrIn - string with the source file full path
+        pstrOut - string with the target file full path
+        pstrDelim - delimiter used in the source file
+        pstrMode - mode in which the process operates - append or overwrite
+
+    Output:
+        No value/object returned, a new file with one column of processed data
+        is created during the process
+    '''
     # check if the input file exists
     assert os.path.isfile(pstrIn), 'Source doesn\'t exist'
 

@@ -3,7 +3,7 @@
 import os, csv
 
 # define modes to use ('append' vs 'overwrite')
-strMode = 'append'
+strMode = 'overwrite'
 
 # define source file delimiter
 strDelim = ';'
@@ -36,7 +36,10 @@ def CreateOneColumn(pstrIn, pstrOut, pstrDelim, pstrMode):
         # get the 'words' from the input
         lstWords = list(objParser)
 
-        # take care of cases when the word contains separators as characters
+        # process every word and write it to the new file
+        for strWord in lstWords[0]:
+            strSafeWord = fstrTreatWord(strWord)
+            objOut.write(strSafeWord + '\n')
 
     # save and close the target file
     objOut.close()

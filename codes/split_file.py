@@ -73,3 +73,8 @@ def SplitFile(pstrPathIn, pstrPathOut, pintNumRows):
 
     # inform the user about the process end (use intF because of 0-indexing)
     print('The file has been successfully split to ' + str(intF) + ' files.')
+
+p1 = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/large_column.txt'
+p2 = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/'
+i1 = 10000
+SplitFile(p1, p2, i1)

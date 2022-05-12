@@ -1,6 +1,6 @@
 # create large one-column file for data generating
 
-import os, csv, numpy
+import os, csv, numpy as np
 
 # define modes to use ('append' vs 'overwrite')
 strMode = 'overwrite'
@@ -97,7 +97,7 @@ def fRandomDelim():
     Outputs: randomly generated delimiter and its index in the delimiter list
     '''
     # set the set of possible delimiters to choose from
-    lstDelims[',', ';', ' ', '\t']
+    lstDelims = [',', ';', ' ', '\t']
 
     # generate a random index based on the number of delimiters
     intRand = int(np.random.uniform() * len(lstDelims))

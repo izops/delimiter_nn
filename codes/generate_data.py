@@ -51,13 +51,23 @@ def GenerateData(
     npRowIndexes = np.random.rand(pintNumWords) * len(lstFile)
     npRowIndexes = npRowIndexes.astype(int)
 
+    # generate a random delimiter and its label to
+
     # get the respective words and write them to data and labels
-    for intIndex in npRowIndexes:
+    for intIndex in range(len(npRowIndexes)):
         # get the selected word
-        strWord = lstFile[intIndex]
+        strWord = lstFile[npRowIndexes[intIndex]]
 
         # write selected word to data and generate respective labels
         WriteToFiles(objData, objLabels, strWord)
+
+        # add the last symbol based on the position of the loop
+        if intIndex == len(npRowIndexes) - 1:
+            # last word, add line break
+            objData.write('\n')
+            objLabels.write('\n')
+        else:
+            # not the last word, add delimiter and its label
 
 
 
@@ -83,3 +93,26 @@ def WriteToFiles(pobjData, pobjLabels, pstrWord):
         # write the word to the data file and labels to the labels file
         pobjData.write(pstrWord)
         pobjLabels.write(strLabels)
+
+def fRandomDelim():
+    '''
+    Generate random delimiter
+
+    Inputs: None
+
+    Outputs: randomly generated delimiter and its index in the delimiter list
+    '''
+    # set the set of possible delimiters to choose from
+    lstDelims = [',', ';', ' ', '\t']
+
+    # generate a random index based on the number of delimiters
+    intRand = int(np.random.uniform() * len(lstDelims))
+
+    # set the delimiter to return
+    strDelim = lstDelims[intRand]
+
+    # set the numeric label to return
+    intLabel = intRand + 1
+
+    # return random delimiter and its index
+    return strDelim, intLabel

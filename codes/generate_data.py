@@ -22,6 +22,12 @@ def GenerateData(
     assert pintNumOutCols > 0, 'There has to be at least one column in the output'
 
     # create output file path
+    if pstrPathSource[-1] != '/':
+        strPathIn = pstrPathSource + '/'
+    else:
+        strPathIn = pstrPathSource
+
+    # create output file path
     if pstrPathOut[-1] != '/':
         strPath = pstrPathOut + '/'
     else:
@@ -36,7 +42,7 @@ def GenerateData(
         intFile = int(np.random.uniform() * pintNumFiles)
 
         # generate full name of the generated source file
-        strFileIn = strPath + STR_FILE_NAME_IN + str(intFile) +
+        strFileIn = strPathIn + STR_FILE_NAME_IN + str(intFile) + \
             STR_FILE_EXTENSION_IN
 
         # initialize empty lists for the file and for the output
@@ -51,10 +57,10 @@ def GenerateData(
             lstFile.append(strRow)
 
         # close the source file
-        lstFile.close()
+        objInFile.close()
 
         # generate a random array with possible row indexes
-        npRowIndexes = np.random.rand(pintNumWords) * len(lstFile)
+        npRowIndexes = np.random.rand(pintNumOutCols) * len(lstFile)
         npRowIndexes = npRowIndexes.astype(int)
 
         # generate a random delimiter and its label for this data row
@@ -64,6 +70,9 @@ def GenerateData(
         for intIndex in range(len(npRowIndexes)):
             # get the selected word
             strWord = lstFile[npRowIndexes[intIndex]]
+
+            # remove line breaks
+            strWord = strWord.replace('\n', '')
 
             # write selected word to data and generate respective labels
             WriteToFiles(objData, objLabels, strWord)
@@ -108,6 +117,9 @@ def WriteToFiles(pobjData, pobjLabels, pstrWord):
         # create a single string with labels
         strLabels = ' '.join(lstLabels)
 
+        # add a space at the end of the label string
+        strLabels = strLabels + ' '
+
         # write the word to the data file and labels to the labels file
         pobjData.write(pstrWord)
         pobjLabels.write(strLabels)
@@ -134,3 +146,19 @@ def fRandomDelim():
 
     # return random delimiter and its index
     return strDelim, intLabel
+
+strPathSource = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/split'
+intNumFiles = 1000
+intNumFileRows = 1000
+strPathOut = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/'
+intNumOutRows = 1
+intNumOutCols = 4
+
+GenerateData(
+    strPathSource,
+    intNumFiles,
+    intNumFileRows,
+    strPathOut,
+    intNumOutRows,
+    intNumOutCols
+)

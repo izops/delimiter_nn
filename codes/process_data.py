@@ -23,7 +23,7 @@ def CreateOneColumn(pstrIn, pstrOut, pstrDelim, pstrMode):
     objIn = open(pstrIn, 'r')
 
     # open the target file in append mode, if selected
-    if strMode == 'append' and os.path.isfile(pstrOut):
+    if pstrMode == 'append' and os.path.isfile(pstrOut):
         objOut = open(pstrOut, 'a')
     else:
         objOut = open(pstrOut, 'w')

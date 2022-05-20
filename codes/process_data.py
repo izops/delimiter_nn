@@ -2,16 +2,6 @@
 
 import os, csv, numpy as np
 
-# define modes to use ('append' vs 'overwrite')
-strMode = 'append'
-
-# define source file delimiter
-strDelim = ';'
-
-# define path of the source file
-strPathIn = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/MP_AU_VERTRAG_INVENTUR_20210312.asc'
-strPathOut = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/large_column.txt'
-
 def CreateOneColumn(pstrIn, pstrOut, pstrDelim, pstrMode):
     '''
     Splits a text file into a one column file by words

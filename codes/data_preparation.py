@@ -3,7 +3,7 @@ import os
 
 def flstReadData(pstrPath):
     '''
-    Imports a text file to a list
+    Imports a data text file to a list
 
     Inputs:
         pstrPath - full file path containing the data
@@ -24,7 +24,23 @@ def flstReadData(pstrPath):
         # remove line breaks from the row
         strRead = strRow.replace('\n', '')
 
+        # break down the row to separate characters
+        lstRow = list(strRead)
+
         # add row to the list
-        lstData.append(strRead)
+        lstData.append(lstRow)
 
     return lstData
+
+def flstConvertToASCII(plstData):
+    # check if the input is a list
+    assert type(plstData) == list, 'The input must be a list of data'
+
+    # initialize an empty list for outputs
+    lstOut = []
+
+    # convert each sublist to an ASCII code
+    for lstSublist in plstData:
+        lstOut.append(list(map(ord, lstSublist)))
+
+    return lstOut

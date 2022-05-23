@@ -87,6 +87,10 @@ def GenerateData(
                 objData.write(strDelim)
                 objLabels.write(str(intLabel) + ' ')
 
+        # print info about progress
+        if intTotalRows % 1000 == 0:
+            print(str(intTotalRows) + ' rows generated')
+
 
 
     # get a data row from the source file
@@ -151,7 +155,7 @@ strPathSource = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_ot
 intNumFiles = 104304
 intNumFileRows = 1000
 strPathOut = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/'
-intNumOutRows = 250000
+intNumOutRows = 1000000
 intNumOutCols = 15
 
 GenerateData(

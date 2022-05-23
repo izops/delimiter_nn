@@ -16,6 +16,26 @@ def GenerateData(
     pintNumOutRows,
     pintNumOutCols
 ):
+    '''
+    Generates a random data sample with randomly generated separators, with
+    corresponding data labels. It assumes existence of n files with the constant
+    number of rows to speed up randomization process.
+
+    Inputs:
+        pstrPathSource - path where the source files are saved
+        pintNumFiles - number of the source files, the name must follow a
+            convention of STR_FILE_NAME_IN + file number + STR_FILE_EXTENSION_IN
+        pintNumFileRows - number of rows in each of the files
+        pstrPathOut - path to a folder where the outputs will be saved, if the
+            folder doesn't exist, it is created by the program
+        pintNumOutRows - number of data rows that will be generated
+        pintNumOutCols - number of data columns that will be generated
+
+    Output:
+        The procedure doesn't return any values or objects. Two files are
+        created in pstrPathOut folder - data and labels with row indexes
+        correspond to each other - 1st data row is represented by 1st label row
+    '''
     assert os.path.isdir(pstrPathSource), 'Provide a path with source files'
     assert pintNumFiles > 0, 'No source files, can\'t continue'
     assert os.path.isdir(pstrPathOut), 'Provide an output path'
@@ -85,7 +105,7 @@ def GenerateData(
             else:
                 # not the last word, add delimiter and its label
                 objData.write(strDelim)
-                objLabels.write(str(intLabel) + ' ')
+                objLabels.write(str(intLabel))
 
         # print info about progress
         if intTotalRows % 1000 == 0:
@@ -118,11 +138,8 @@ def WriteToFiles(pobjData, pobjLabels, pstrWord):
         lstLabels = map(str, lstLabels)
         lstLabels = list(lstLabels)
 
-        # create a single string with labels
-        strLabels = ' '.join(lstLabels)
-
-        # add a space at the end of the label string
-        strLabels = strLabels + ' '
+        # create a single string with labels without spaces
+        strLabels = ''.join(lstLabels)
 
         # write the word to the data file and labels to the labels file
         pobjData.write(pstrWord)

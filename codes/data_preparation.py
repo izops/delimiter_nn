@@ -3,7 +3,7 @@ import os
 
 def flstReadData(pstrPath):
     '''
-    Imports a data text file to a list
+    Imports a text file to a list
 
     Inputs:
         pstrPath - full file path containing the data

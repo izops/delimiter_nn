@@ -76,5 +76,5 @@ def SplitFile(pstrPathIn, pstrPathOut, pintNumRows):
 
 p1 = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/source.txt'
 p2 = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/split'
-i1 = 1000
+i1 = 10000
 SplitFile(p1, p2, i1)

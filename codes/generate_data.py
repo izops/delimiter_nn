@@ -86,6 +86,9 @@ def GenerateData(
         # generate a random delimiter and its label for this data row
         strDelim, intLabel = fRandomDelim()
 
+        # write the delimiter label and line break into the label file
+        objLabels.write(str(intLabel) + '\n')
+
         # get the respective words and write them to data and labels
         for intIndex in range(len(npRowIndexes)):
             # get the selected word
@@ -94,26 +97,21 @@ def GenerateData(
             # remove line breaks
             strWord = strWord.replace('\n', '')
 
-            # write selected word to data and generate respective labels
-            WriteToFiles(objData, objLabels, strWord)
+            # write selected word to data
+            objData.write(strWord)
 
             # add the last symbol based on the position of the loop
             if intIndex == len(npRowIndexes) - 1:
                 # last word, add line break
                 objData.write('\n')
-                objLabels.write('\n')
             else:
-                # not the last word, add delimiter and its label
+                # not the last word, add delimiter
                 objData.write(strDelim)
-                objLabels.write(str(intLabel))
 
         # print info about progress
         if intTotalRows % 1000 == 0:
             print(str(intTotalRows) + ' rows generated')
 
-
-
-    # get a data row from the source file
 
 def WriteToFiles(pobjData, pobjLabels, pstrWord):
     '''
@@ -154,23 +152,20 @@ def fRandomDelim():
     Outputs: randomly generated delimiter and its index in the delimiter list
     '''
     # set the set of possible delimiters to choose from
-    lstDelims = [',', ';', ' ', '\t']
+    lstDelims = ['', ',', ';', ' ', '\t']
 
     # generate a random index based on the number of delimiters
-    intRand = int(np.random.uniform() * len(lstDelims))
+    intLabel = int(np.random.uniform() * len(lstDelims))
 
     # set the delimiter to return
-    strDelim = lstDelims[intRand]
-
-    # set the numeric label to return
-    intLabel = intRand + 1
+    strDelim = lstDelims[intLabel]
 
     # return random delimiter and its index
     return strDelim, intLabel
 
 strPathSource = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/split'
-intNumFiles = 104304
-intNumFileRows = 1000
+intNumFiles = 10430
+intNumFileRows = 10000
 strPathOut = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/'
 intNumOutRows = 1000000
 intNumOutCols = 15

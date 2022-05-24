@@ -152,8 +152,8 @@ strPathSource = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_ot
 intNumFiles = 10430
 intNumFileRows = 10000
 strPathOut = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/'
-intNumOutRows = 1500
-intNumOutCols = 3
+intNumOutRows = 1500000
+intNumOutCols = 15
 
 GenerateData(
     strPathSource,

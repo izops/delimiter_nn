@@ -1,6 +1,8 @@
 # generate data
 
-import numpy as np, os
+import numpy as np
+import os
+import time
 
 # define default output file names
 STR_FILE_NAME_DATA = 'data.txt'
@@ -36,6 +38,10 @@ def GenerateData(
         created in pstrPathOut folder - data and labels with row indexes
         correspond to each other - 1st data row is represented by 1st label row
     '''
+    # add time stamp
+    tStart = time.process_time()
+
+    # do checks on inputs
     assert os.path.isdir(pstrPathSource), 'Provide a path with source files'
     assert pintNumFiles > 0, 'No source files, can\'t continue'
     assert os.path.isdir(pstrPathOut), 'Provide an output path'
@@ -108,40 +114,19 @@ def GenerateData(
                 # not the last word, add delimiter
                 objData.write(strDelim)
 
-        # print info about progress
+        # print info about progress with time stamp
         if intTotalRows % 1000 == 0:
-            print(str(intTotalRows) + ' rows generated')
+            print(
+                str(intTotalRows) + ' rows generated after ' + \
+                str(time.process_time() - tStart) + ' seconds' \
+            )
 
+    # add final time stamp
+    print(
+        str(intTotalRows) + ' rows generated in ' + \
+        str(time.process_time() - tStart) + ' seconds') \
+    )
 
-def WriteToFiles(pobjData, pobjLabels, pstrWord):
-    '''
-    Writes a word to the data file and corresponding zero labels to the labels
-    file
-
-    Inputs:
-        pobjData - handle to a data file opened for writing
-        pobjLabels - handle to a label file opened for writing
-        pstrWord - word to be written and labeled
-    '''
-    # do the operation only if the word is not missing
-    if len(pstrWord) > 0:
-        # generate array of zeros with as many zeros as characters in the word
-        npLabels = np.zeros(len(pstrWord))
-
-        # convert the array to integers and then to a list
-        npLabels = npLabels.astype(int)
-        lstLabels = npLabels.tolist()
-
-        # convert the numeric list to a list of characters
-        lstLabels = map(str, lstLabels)
-        lstLabels = list(lstLabels)
-
-        # create a single string with labels without spaces
-        strLabels = ''.join(lstLabels)
-
-        # write the word to the data file and labels to the labels file
-        pobjData.write(pstrWord)
-        pobjLabels.write(strLabels)
 
 def fRandomDelim():
     '''
@@ -167,8 +152,8 @@ strPathSource = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_ot
 intNumFiles = 10430
 intNumFileRows = 10000
 strPathOut = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/'
-intNumOutRows = 1000000
-intNumOutCols = 15
+intNumOutRows = 1500
+intNumOutCols = 3
 
 GenerateData(
     strPathSource,

@@ -115,7 +115,7 @@ def GenerateData(
                 objData.write(strDelim)
 
         # print info about progress with time stamp
-        if intTotalRows % 1000 == 0:
+        if intTotalRows > 0 and intTotalRows % 1000 == 0:
             print(
                 str(intTotalRows) + ' rows generated after ' + \
                 str(time.process_time() - tStart) + ' seconds' \
@@ -123,8 +123,8 @@ def GenerateData(
 
     # add final time stamp
     print(
-        str(intTotalRows) + ' rows generated in ' + \
-        str(time.process_time() - tStart) + ' seconds') \
+        str(intTotalRows + 1) + ' rows generated in ' + \
+        str(time.process_time() - tStart) + ' seconds' \
     )
 
 

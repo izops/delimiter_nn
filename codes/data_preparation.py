@@ -21,11 +21,8 @@ def flstReadData(pstrPath, zero_pad = True, required_length = 100):
 
     # read in each row into the list
     for strRow in objData:
-        # remove line breaks from the row
-        strRead = strRow.replace('\n', '')
-
-        # break down the row to separate characters
-        lstRow = list(strRead)
+        # modify the data to match requirements
+        lstRow = flstListifyRow(strRow, zero_pad, required_length)
 
         # add row to the list
         lstData.append(lstRow)

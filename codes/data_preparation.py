@@ -52,10 +52,19 @@ def flstListifyRow(pstrRow, zero_pad = True, required_length = 100):
     strProcessed = pstrRow.replace('\n', '')
 
     # modify the string to match length requirements
+    # if zero padding is not required, shortening should not be either (RNN)
     if zero_pad:
         if len(strProcessed) < required_length:
             # zero padding required, match it
             strProcessed = fstrZeroPad(strProcessed, required_length)
+        else:
+            # shorten the string to the required length
+            strProcessed = strProcessed[:required_length]
+
+    # break down the adjusted string to list of characters
+    lstChars = list(strProcessed)
+
+    return lstChars
 
 def fstrZeroPad(pstrInput, pintLength):
     '''

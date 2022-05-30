@@ -58,15 +58,19 @@ def flstListifyRow(pstrRow, zero_pad = True, required_length = 100):
     # remove the line breaks from the string
     strProcessed = pstrRow.replace('\n', '')
 
-    # modify the string to match length requirements
+    # split the string to the list and convert to ASCII
+    lstSplit = list(strProcessed)
+    lstSplit = flstConvertToASCII(lstSplit)
+
+    # modify the list to match length requirements
     # if zero padding is not required, shortening should not be either (RNN)
     if zero_pad:
-        if len(strProcessed) < required_length:
+        if len(lstSplit) < required_length:
             # zero padding required, match it
-            strProcessed = fstrZeroPad(strProcessed, required_length)
+            lstSplit = flstZeroPad(lstSplit, required_length)
         else:
             # shorten the string to the required length
-            strProcessed = strProcessed[:required_length]
+            lstSplit = lstSplit[:required_length]
 
     # break down the adjusted string to list of characters
     lstChars = list(strProcessed)

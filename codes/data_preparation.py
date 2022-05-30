@@ -77,21 +77,21 @@ def flstListifyRow(pstrRow, zero_pad = True, required_length = 100):
 
     return lstChars
 
-def fstrZeroPad(pstrInput, pintLength):
+def flstZeroPad(plstInput, pintLength):
     '''
-    Create zero padding of a string to required length.
+    Create zero padding of a list to required length.
 
     Inputs:
-        pstrInput - input string to zero pad
-        pintLength - length to which the string will be zero padded
+        plstInput - input list to zero pad
+        pintLength - length to which the list will be zero padded
 
     Output:
-        String zero-padded to a required
+        List zero-padded to a required length
     '''
     # create zero padding with the required length
-    strZeros = '0' * (pintLength - len(pstrInput))
+    lstZeros = [0] * (pintLength - len(pstrInput))
 
-    # concatenate the strings
-    strProcessed = pstrInput + strZeros
+    # concatenate the lists
+    lstProcessed = plstInput + lstZeros
 
-    return strProcessed
+    return lstProcessed

@@ -39,28 +39,14 @@ def flstReadData(
 
     return lstData
 
-def flstConvertToASCII(plstData):
-    # check if the input is a list
-    assert type(plstData) == list, 'The input must be a list of data'
-
-    # initialize an empty list for outputs
-    lstOut = []
-
-    # convert each sublist to an ASCII code
-    for lstSublist in plstData:
-        lstOut.append(list(map(ord, lstSublist)))
-
-    return lstOut
-
 def flstListifyRow(pstrRow, zero_pad = True, required_length = 100):
     assert type(pstrRow) == str, 'Not a string, can\'t continue'
 
     # remove the line breaks from the string
     strProcessed = pstrRow.replace('\n', '')
 
-    # split the string to the list and convert to ASCII
-    lstSplit = list(strProcessed)
-    lstSplit = flstConvertToASCII(lstSplit)
+    # convert the string to ASCII list
+    lstSplit = list(map(ord, strProcessed))
 
     # modify the list to match length requirements
     # if zero padding is not required, shortening should not be either (RNN)
@@ -72,10 +58,7 @@ def flstListifyRow(pstrRow, zero_pad = True, required_length = 100):
             # shorten the string to the required length
             lstSplit = lstSplit[:required_length]
 
-    # break down the adjusted string to list of characters
-    lstChars = list(strProcessed)
-
-    return lstChars
+    return lstSplit
 
 def flstZeroPad(plstInput, pintLength):
     '''

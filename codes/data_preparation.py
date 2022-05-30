@@ -1,7 +1,12 @@
 # process the data for neural network
 import os
 
-def flstReadData(pstrPath, zero_pad = True, required_length = 100):
+def flstReadData(
+    pstrPath,
+    is_label = False,
+    zero_pad = True,
+    required_length = 100
+):
     '''
     Imports a text file to a list
 
@@ -19,13 +24,18 @@ def flstReadData(pstrPath, zero_pad = True, required_length = 100):
     # initialize an empty list for storing the data
     lstData = []
 
-    # read in each row into the list
-    for strRow in objData:
-        # modify the data to match requirements
-        lstRow = flstListifyRow(strRow, zero_pad, required_length)
+        # read in each row into the list
+        for strRow in objData:
+            if not is_label:
+                # modify the data to match requirements
+                lstRow = flstListifyRow(strRow, zero_pad, required_length)
+            else:
+                # convert labels to clean form
+                strProcessed = strRow.replace('\n', '')
+                lstRow = int(strProcessed)
 
-        # add row to the list
-        lstData.append(lstRow)
+            # add row to the list
+            lstData.append(lstRow)
 
     return lstData
 

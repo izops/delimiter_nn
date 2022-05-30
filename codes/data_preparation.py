@@ -24,18 +24,18 @@ def flstReadData(
     # initialize an empty list for storing the data
     lstData = []
 
-        # read in each row into the list
-        for strRow in objData:
-            if not is_label:
-                # modify the data to match requirements
-                lstRow = flstListifyRow(strRow, zero_pad, required_length)
-            else:
-                # convert labels to clean form
-                strProcessed = strRow.replace('\n', '')
-                lstRow = int(strProcessed)
+    # read in each row into the list
+    for strRow in objData:
+        if not is_label:
+            # modify the data to match requirements
+            lstRow = flstListifyRow(strRow, zero_pad, required_length)
+        else:
+            # convert labels to clean form
+            strProcessed = strRow.replace('\n', '')
+            lstRow = int(strProcessed)
 
-            # add row to the list
-            lstData.append(lstRow)
+        # add row to the list
+        lstData.append(lstRow)
 
     return lstData
 
@@ -89,7 +89,7 @@ def flstZeroPad(plstInput, pintLength):
         List zero-padded to a required length
     '''
     # create zero padding with the required length
-    lstZeros = [0] * (pintLength - len(pstrInput))
+    lstZeros = [0] * (pintLength - len(plstInput))
 
     # concatenate the lists
     lstProcessed = plstInput + lstZeros

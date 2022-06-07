@@ -149,10 +149,10 @@ def fRandomDelim():
     return strDelim, intLabel
 
 strPathSource = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/split'
-intNumFiles = 10430
+intNumFiles = 10429
 intNumFileRows = 10000
 strPathOut = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/'
-intNumOutRows = 1500000
+intNumOutRows = 5000000
 intNumOutCols = 15
 
 GenerateData(

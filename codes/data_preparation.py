@@ -18,8 +18,14 @@ def flstReadData(
     # check that the file exists
     assert os.path.isfile(pstrPath), 'This is not a valid file'
 
+    # get the file name from path
+    strFileName = pstrPath[pstrPath.rfind('/') + 1:]
+
     # open the file for reading
     objData = open(pstrPath, 'r')
+
+    # initialize a loop counter
+    intCounter = 0
 
     # initialize an empty list for storing the data
     lstData = []
@@ -36,6 +42,13 @@ def flstReadData(
 
         # add row to the list
         lstData.append(lstRow)
+
+        # output counter info
+        if (intCounter + 1) % 10000 == 0:
+            print(str(intCounter + 1) + ' rows were read from ' + strFileName)
+
+        # increment the counter
+        intCounter += 1
 
     return lstData
 

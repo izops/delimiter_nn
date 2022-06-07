@@ -11,58 +11,70 @@ strPathLabels = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_ot
 # set number of classes to assign in the datasets
 INT_NUM_CLASSES = 5
 
+# set the size of the data subsets
+DATA_SIZE_TRAIN = 0.7
+
 print('Importing the data')
 
 # import data
 lstData = dp.flstReadData(strPathData)
 lstLabels = dp.flstReadData(strPathLabels, True)
 
+# set the length of the train data
+intLengthTrain = int(DATA_SIZE_TRAIN * len(lstData))
+
+# split the data to train and test
+lstDataTrain = lstData[:intLengthTrain]
+lstDataTest = lstData[intLengthTrain:]
+
+# split the labels data to train and test
+lstLabelsTrain = lstLabels[:intLengthTrain]
+lstLabelsTest = lstLabels[intLengthTrain:]
+
 # convert data to numpy arrays
-source_data = np.array(lstData)
-source_labels = np.array(lstLabels)
+data_train = np.array(lstDataTrain)
+data_test = np.array(lstDataTest)
+labels_train = np.array(lstLabelsTrain)
+labels_test = np.array(lstLabelsTest)
 
-# normalize data
-train_x = tf.cast()
-
+# normalize the data
+train_x = data_train / 127.0
+test_x = data_test / 127.0
+labels_train = labels_train / 1.0
+labels_test = labels_test / 1.0
 # convert labels to one hot
-train_y = tf.one_hot(source_labels, depth = INT_NUM_CLASSES)
+train_y = tf.one_hot(labels_train, depth = INT_NUM_CLASSES)
+test_y = tf.one_hot(labels_test, depth = INT_NUM_CLASSES)
 
 print('Data import finished')
 print('Converting to tensors')
 
 # create tensor datasets
-train_x = tf.data.Dataset.from_tensor_slices(source_data)
-train_y = tf.data.Dataset.from_tensor_slices(source_labels)
-print('Conversion to tensors finished for the data')
-
-# define a function to normalize datasets
-def normalize(nValue):
-    nValue = tf.cast(nValue, tf.float32) / 127.0
-    return nValue
-
-# normalize the data
-train_x = train_x.map(normalize)
+train_data = tf.data.Dataset.from_tensor_slices((train_x, train_y)).batch(16)
+test_data = tf.data.Dataset.from_tensor_slices((test_x, test_y)).batch(16)
+print('Conversion to tensors finished')
 
 # build a keras model
 model = keras.Sequential([
+    keras.layers.Reshape(target_shape = (100,), input_shape = (100, )),
     keras.layers.Dense(units = 100, activation = 'relu'),
     keras.layers.Dense(units = 88, activation = 'relu'),
     keras.layers.Dense(units = 79, activation = 'relu'),
-    keras.layers.Dense(units = 75, activation = 'relu'),
-    keras.layers.Dense(units = 75, activation = 'relu'),
-    keras.layers.Dense(units = 75, activation = 'relu'),
-    keras.layers.Dense(units = 75, activation = 'relu'),
-    keras.layers.Dense(units = 75, activation = 'relu'),
     keras.layers.Dense(units = INT_NUM_CLASSES, activation = 'softmax')
 ])
 
 # compile the neural network
 model.compile(
     optimizer = 'adam',
-    loss = tf.losses.CategoricalCrossentropy(from_logits = True),
+    loss = tf.losses.MeanSquaredError(),
     metrics = ['accuracy']
 )
 
+# train the model
 trained = model.fit(
-
+    train_data.repeat(),
+    epochs = 30,
+    steps_per_epoch = 2500,
+    validation_data = test_data.repeat(),
+    validation_steps = 5
 )

@@ -73,7 +73,7 @@ model.compile(
 # train the model
 trained = model.fit(
     train_data.repeat(),
-    epochs = 30,
+    epochs = 40,
     steps_per_epoch = 2500,
     validation_data = test_data.repeat(),
     validation_steps = 5

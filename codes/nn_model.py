@@ -60,6 +60,10 @@ model = keras.Sequential([
     keras.layers.Dense(units = 100, activation = 'relu'),
     keras.layers.Dense(units = 88, activation = 'relu'),
     keras.layers.Dense(units = 79, activation = 'relu'),
+    keras.layers.Dense(units = 50, activation = 'relu'),
+    keras.layers.Dense(units = 40, activation = 'relu'),
+    keras.layers.Dense(units = 20, activation = 'relu'),
+    keras.layers.Dense(units = 15, activation = 'relu'),
     keras.layers.Dense(units = INT_NUM_CLASSES, activation = 'softmax')
 ])
 
@@ -75,7 +79,6 @@ trained = model.fit(
     train_x,
     train_y,
     epochs = 40,
-    steps_per_epoch = 2500,
-    validation_data = test_data,
-    validation_steps = 2
+    batch_size = 128,
+    validation_data = test_data
 )

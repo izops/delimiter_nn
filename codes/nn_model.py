@@ -66,15 +66,16 @@ model = keras.Sequential([
 # compile the neural network
 model.compile(
     optimizer = 'adam',
-    loss = tf.losses.MeanSquaredError(),
-    metrics = ['accuracy']
+    loss = 'categorical_crossentropy',
+    metrics = ['categorical_accuracy']
 )
 
 # train the model
 trained = model.fit(
-    train_data.repeat(),
+    train_x,
+    train_y,
     epochs = 40,
     steps_per_epoch = 2500,
-    validation_data = test_data.repeat(),
-    validation_steps = 5
+    validation_data = test_data,
+    validation_steps = 2
 )

@@ -44,7 +44,7 @@ def flstReadData(
         lstData.append(lstRow)
 
         # output counter info
-        if (intCounter + 1) % 10000 == 0:
+        if (intCounter + 1) % 100000 == 0:
             print(str(intCounter + 1) + ' rows were read from ' + strFileName)
 
         # increment the counter

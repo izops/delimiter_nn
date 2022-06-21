@@ -58,14 +58,11 @@ print('Conversion to tensors finished')
 model = keras.Sequential([
     keras.layers.Reshape(target_shape = (100,), input_shape = (100, )),
     keras.layers.Dense(units = 100, activation = 'relu'),
-    keras.layers.Dense(units = 100, activation = 'relu'),
+    keras.layers.Dense(units = 128, activation = 'relu'),
+    keras.layers.Dense(units = 128, activation = 'relu'),
     keras.layers.Dense(units = 64, activation = 'relu'),
     keras.layers.Dense(units = 64, activation = 'relu'),
-    keras.layers.Dense(units = 64, activation = 'relu'),
-    keras.layers.Dense(units = 64, activation = 'relu'),
-    keras.layers.Dense(units = 48, activation = 'relu'),
-    keras.layers.Dense(units = 48, activation = 'relu'),
-    keras.layers.Dense(units = 48, activation = 'relu'),
+    keras.layers.Dense(units = 128, activation = 'relu'),
     keras.layers.Dense(units = 48, activation = 'relu'),
     keras.layers.Dense(units = 16, activation = 'relu'),
     keras.layers.Dense(units = INT_NUM_CLASSES, activation = 'softmax')
@@ -83,5 +80,6 @@ trained = model.fit(
     train_x,
     train_y,
     epochs = 20,
-    batch_size = 128
+    batch_size = 128,
+    validation_data = test_data
 )

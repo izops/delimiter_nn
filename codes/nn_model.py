@@ -5,8 +5,9 @@ from tensorflow import keras
 import data_preparation as dp
 
 # set paths
-strPathData = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/sample_data.txt'
-strPathLabels = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/sample_labels.txt'
+strPathGeneral = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/'
+strPathData = strPathGeneral + 'sample_data.txt'
+strPathLabels = strPathGeneral + 'sample_labels.txt'
 
 # set number of classes to assign in the datasets
 INT_NUM_CLASSES = 5
@@ -83,6 +84,8 @@ model = keras.Sequential([
     keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(32, activation = 'relu'),
+    keras.layers.Dense(24, activation = 'relu'),
+    keras.layers.Dense(10, activation = 'relu'),
     keras.layers.Dense(INT_NUM_CLASSES, activation = 'softmax')
 ])
 

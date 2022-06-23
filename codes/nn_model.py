@@ -13,7 +13,7 @@ strPathLabels = strPathGeneral + 'sample_labels.txt'
 INT_NUM_CLASSES = 5
 
 # set the size of the data subsets
-DATA_SIZE_TRAIN = 0.85
+DATA_SIZE_TRAIN = 0.9
 
 print('Importing the data')
 
@@ -75,10 +75,12 @@ model = keras.Sequential([
     keras.layers.MaxPool1D(2),
     keras.layers.Conv1D(32, kernel_size = 16, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(32, kernel_size = 5),
+    keras.layers.Conv1D(32, kernel_size = 5, padding = 'SAME'),
+    keras.layers.MaxPool1D(2),
+    keras.layers.Conv1D(8, kernel_size = 5),
     keras.layers.MaxPool1D(2),
     keras.layers.Flatten(),
-    keras.layers.Dense(320, activation = 'relu'),
+    keras.layers.Dense(32, activation = 'relu'),
     keras.layers.Dense(128, activation = 'relu'),
     keras.layers.Dense(128, activation = 'relu'),
     keras.layers.Dense(64, activation = 'relu'),
@@ -108,7 +110,7 @@ model.compile(
 trained = model.fit(
     train_x,
     train_y,
-    epochs = 20,
+    epochs = 25,
     batch_size = 128,
     validation_data = test_data
 )

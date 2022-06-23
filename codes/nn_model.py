@@ -13,7 +13,7 @@ strPathLabels = strPathGeneral + 'sample_labels.txt'
 INT_NUM_CLASSES = 5
 
 # set the size of the data subsets
-DATA_SIZE_TRAIN = 0.7
+DATA_SIZE_TRAIN = 0.85
 
 print('Importing the data')
 
@@ -108,7 +108,7 @@ model.compile(
 trained = model.fit(
     train_x,
     train_y,
-    epochs = 10,
+    epochs = 20,
     batch_size = 128,
     validation_data = test_data
 )

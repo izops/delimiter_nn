@@ -55,17 +55,30 @@ test_data = tf.data.Dataset.from_tensor_slices((test_x, test_y)).batch(16)
 print('Conversion to tensors finished')
 
 # build a keras model
+# model = keras.Sequential([
+#     keras.layers.Reshape(target_shape = (100,), input_shape = (100, )),
+#     keras.layers.Dense(units = 100, activation = 'relu'),
+#     keras.layers.Dense(units = 160, activation = 'relu'),
+#     keras.layers.Dense(units = 128, activation = 'relu'),
+#     keras.layers.Dense(units = 64, activation = 'relu'),
+#     keras.layers.Dense(units = 128, activation = 'relu'),
+#     keras.layers.Dense(units = 96, activation = 'relu'),
+#     keras.layers.Dense(units = 48, activation = 'relu'),
+#     keras.layers.Dense(units = 16, activation = 'relu'),
+#     keras.layers.Dense(units = INT_NUM_CLASSES, activation = 'softmax')
+# ])
+
 model = keras.Sequential([
-    keras.layers.Reshape(target_shape = (100,), input_shape = (100, )),
-    keras.layers.Dense(units = 100, activation = 'relu'),
-    keras.layers.Dense(units = 160, activation = 'relu'),
-    keras.layers.Dense(units = 128, activation = 'relu'),
-    keras.layers.Dense(units = 64, activation = 'relu'),
-    keras.layers.Dense(units = 128, activation = 'relu'),
-    keras.layers.Dense(units = 96, activation = 'relu'),
-    keras.layers.Dense(units = 48, activation = 'relu'),
-    keras.layers.Dense(units = 16, activation = 'relu'),
-    keras.layers.Dense(units = INT_NUM_CLASSES, activation = 'softmax')
+    keras.layers.Conv1D(16, kernel_size = 16, padding = 'SAME', input_shape = (100, 1)),
+    keras.layers.MaxPool1D(2),
+    keras.layers.Conv1D(16, kernel_size = 10),
+    keras.layers.MaxPool1D(2),
+    keras.layers.Conv1D(8, kernel_size = 5),
+    keras.layers.MaxPool1D(2),
+    keras.layers.Flatten(),
+    keras.layers.Dense(64, activation = 'relu'),
+    keras.layers.Dense(64, activation = 'relu'),
+    keras.layers.Dense(INT_NUM_CLASSES, activation = 'softmax')
 ])
 
 # compile the neural network
@@ -76,10 +89,18 @@ model.compile(
 )
 
 # train the model
+# trained = model.fit(
+#     train_x,
+#     train_y,
+#     epochs = 80,
+#     batch_size = 128,
+#     validation_data = test_data
+# )
+
 trained = model.fit(
     train_x,
     train_y,
-    epochs = 80,
+    epochs = 10,
     batch_size = 128,
     validation_data = test_data
 )

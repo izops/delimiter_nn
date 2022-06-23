@@ -5,8 +5,8 @@ from tensorflow import keras
 import data_preparation as dp
 
 # set paths
-strPathData = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/sample_data.txt'
-strPathLabels = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/sample_labels.txt'
+strPathData = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/sample_data.txt'
+strPathLabels = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/sample_labels.txt'
 
 # set number of classes to assign in the datasets
 INT_NUM_CLASSES = 5
@@ -68,16 +68,21 @@ print('Conversion to tensors finished')
 #     keras.layers.Dense(units = INT_NUM_CLASSES, activation = 'softmax')
 # ])
 
+# build a different model
 model = keras.Sequential([
-    keras.layers.Conv1D(16, kernel_size = 16, padding = 'SAME', input_shape = (100, 1)),
+    keras.layers.Conv1D(32, kernel_size = 32, padding = 'SAME', input_shape = (100, 1)),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(16, kernel_size = 10),
+    keras.layers.Conv1D(32, kernel_size = 16, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(8, kernel_size = 5),
+    keras.layers.Conv1D(32, kernel_size = 5),
     keras.layers.MaxPool1D(2),
     keras.layers.Flatten(),
+    keras.layers.Dense(320, activation = 'relu'),
+    keras.layers.Dense(128, activation = 'relu'),
+    keras.layers.Dense(128, activation = 'relu'),
     keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(64, activation = 'relu'),
+    keras.layers.Dense(32, activation = 'relu'),
     keras.layers.Dense(INT_NUM_CLASSES, activation = 'softmax')
 ])
 

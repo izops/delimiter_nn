@@ -12,7 +12,7 @@ strPathLabels = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separa
 INT_NUM_CLASSES = 5
 
 # set the size of the data subsets
-DATA_SIZE_TRAIN = 0.8
+DATA_SIZE_TRAIN = 0.9
 
 print('Importing the data')
 
@@ -54,21 +54,7 @@ train_data = tf.data.Dataset.from_tensor_slices((train_x, train_y)).batch(16)
 test_data = tf.data.Dataset.from_tensor_slices((test_x, test_y)).batch(16)
 print('Conversion to tensors finished')
 
-# build a keras model
-# model = keras.Sequential([
-#     keras.layers.Reshape(target_shape = (100,), input_shape = (100, )),
-#     keras.layers.Dense(units = 100, activation = 'relu'),
-#     keras.layers.Dense(units = 160, activation = 'relu'),
-#     keras.layers.Dense(units = 128, activation = 'relu'),
-#     keras.layers.Dense(units = 64, activation = 'relu'),
-#     keras.layers.Dense(units = 128, activation = 'relu'),
-#     keras.layers.Dense(units = 96, activation = 'relu'),
-#     keras.layers.Dense(units = 48, activation = 'relu'),
-#     keras.layers.Dense(units = 16, activation = 'relu'),
-#     keras.layers.Dense(units = INT_NUM_CLASSES, activation = 'softmax')
-# ])
-
-# build a different model with accuracy 97 % when trained on 1.5mil rows
+# build a model with accuracy 97 % when trained on 1.5mil rows
 model = keras.Sequential([
     keras.layers.Conv1D(32, kernel_size = 32, padding = 'SAME', input_shape = (100, 1)),
     keras.layers.MaxPool1D(2),
@@ -93,19 +79,13 @@ model.compile(
     metrics = ['categorical_accuracy']
 )
 
-# train the model
-# trained = model.fit(
-#     train_x,
-#     train_y,
-#     epochs = 80,
-#     batch_size = 128,
-#     validation_data = test_data
-# )
-
-trained = model.fit(
-    train_x,
-    train_y,
-    epochs = 15,
-    batch_size = 128,
-    validation_data = test_data
+# train the model and save the history
+history = model.fit(
+	train_x,
+	train_y,
+	epochs = 15,
+	batch_size = 128
 )
+
+# save the model
+model.save('trained_model/cnn')

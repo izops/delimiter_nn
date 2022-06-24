@@ -69,7 +69,7 @@ print('Conversion to tensors finished')
 #     keras.layers.Dense(units = INT_NUM_CLASSES, activation = 'softmax')
 # ])
 
-# build a different model
+# build a different model, achieving 96 % accuracy
 model = keras.Sequential([
     keras.layers.Conv1D(32, kernel_size = 32, padding = 'SAME', input_shape = (100, 1)),
     keras.layers.MaxPool1D(2),

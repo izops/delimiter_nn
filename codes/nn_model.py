@@ -5,15 +5,14 @@ from tensorflow import keras
 import data_preparation as dp
 
 # set paths
-strPathGeneral = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/'
-strPathData = strPathGeneral + 'sample_data.txt'
-strPathLabels = strPathGeneral + 'sample_labels.txt'
+strPathData = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/sample_data.txt'
+strPathLabels = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/sample_labels.txt'
 
 # set number of classes to assign in the datasets
 INT_NUM_CLASSES = 5
 
 # set the size of the data subsets
-DATA_SIZE_TRAIN = 0.9
+DATA_SIZE_TRAIN = 0.7
 
 print('Importing the data')
 
@@ -71,20 +70,19 @@ print('Conversion to tensors finished')
 
 # build a different model
 model = keras.Sequential([
-    keras.layers.Conv1D(16, kernel_size = 32, padding = 'SAME', input_shape = (100, 1), name = 'first_conv'),
+    keras.layers.Conv1D(32, kernel_size = 32, padding = 'SAME', input_shape = (100, 1)),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(16, kernel_size = 16, padding = 'SAME', name = 'second_conv'),
+    keras.layers.Conv1D(32, kernel_size = 16, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(8, kernel_size = 8, padding = 'SAME', name = 'third_conv'),
-    keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(4, kernel_size = 2, name = 'fourth_conv'),
+    keras.layers.Conv1D(32, kernel_size = 5),
     keras.layers.MaxPool1D(2),
     keras.layers.Flatten(),
-    keras.layers.Dense(20, activation = 'relu'),
+    keras.layers.Dense(320, activation = 'relu'),
+    keras.layers.Dense(128, activation = 'relu'),
+    keras.layers.Dense(128, activation = 'relu'),
+    keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(32, activation = 'relu'),
-    keras.layers.Dense(32, activation = 'relu'),
-    keras.layers.Dense(10, activation = 'relu'),
     keras.layers.Dense(INT_NUM_CLASSES, activation = 'softmax')
 ])
 
@@ -107,7 +105,7 @@ model.compile(
 trained = model.fit(
     train_x,
     train_y,
-    epochs = 25,
+    epochs = 15,
     batch_size = 128,
     validation_data = test_data
 )

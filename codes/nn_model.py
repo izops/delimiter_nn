@@ -12,7 +12,7 @@ strPathLabels = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separa
 INT_NUM_CLASSES = 5
 
 # set the size of the data subsets
-DATA_SIZE_TRAIN = 0.7
+DATA_SIZE_TRAIN = 0.8
 
 print('Importing the data')
 
@@ -68,7 +68,7 @@ print('Conversion to tensors finished')
 #     keras.layers.Dense(units = INT_NUM_CLASSES, activation = 'softmax')
 # ])
 
-# build a different model
+# build a different model with accuracy 97 % when trained on 1.5mil rows
 model = keras.Sequential([
     keras.layers.Conv1D(32, kernel_size = 32, padding = 'SAME', input_shape = (100, 1)),
     keras.layers.MaxPool1D(2),

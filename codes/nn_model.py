@@ -69,24 +69,21 @@ print('Conversion to tensors finished')
 #     keras.layers.Dense(units = INT_NUM_CLASSES, activation = 'softmax')
 # ])
 
-# build a different model, achieving 96 % accuracy
+# build a different model
 model = keras.Sequential([
-    keras.layers.Conv1D(32, kernel_size = 32, padding = 'SAME', input_shape = (100, 1)),
+    keras.layers.Conv1D(16, kernel_size = 32, padding = 'SAME', input_shape = (100, 1), name = 'first_conv'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(32, kernel_size = 16, padding = 'SAME'),
+    keras.layers.Conv1D(16, kernel_size = 16, padding = 'SAME', name = 'second_conv'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(32, kernel_size = 5, padding = 'SAME'),
+    keras.layers.Conv1D(8, kernel_size = 8, padding = 'SAME', name = 'third_conv'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(8, kernel_size = 5),
+    keras.layers.Conv1D(4, kernel_size = 2, name = 'fourth_conv'),
     keras.layers.MaxPool1D(2),
     keras.layers.Flatten(),
-    keras.layers.Dense(32, activation = 'relu'),
-    keras.layers.Dense(128, activation = 'relu'),
-    keras.layers.Dense(128, activation = 'relu'),
-    keras.layers.Dense(64, activation = 'relu'),
+    keras.layers.Dense(20, activation = 'relu'),
     keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(32, activation = 'relu'),
-    keras.layers.Dense(24, activation = 'relu'),
+    keras.layers.Dense(32, activation = 'relu'),
     keras.layers.Dense(10, activation = 'relu'),
     keras.layers.Dense(INT_NUM_CLASSES, activation = 'softmax')
 ])

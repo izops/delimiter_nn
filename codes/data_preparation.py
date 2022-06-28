@@ -74,6 +74,7 @@ def flstListifyRow(pstrRow, zero_pad = True, required_length = 100):
         the required length
     '''
     assert type(pstrRow) == str, 'Not a string, can\'t continue'
+    assert required_length > 0, 'The output must have positive length'
 
     # remove the line breaks from the string
     strProcessed = pstrRow.replace('\n', '')

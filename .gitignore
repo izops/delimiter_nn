@@ -141,5 +141,3 @@ cython_debug/
 *.asc
 *.csv
 *.txt
-
-trained_model/cnn

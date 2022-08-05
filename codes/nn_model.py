@@ -113,7 +113,7 @@ stopping_callback = tf.keras.callbacks.EarlyStopping(
 CNN_history = model.fit(
 	train_x,
 	train_y,
-	epochs = 15,
+	epochs = 50,
 	batch_size = 128,
     validation_data = (test_x, test_y),
     callbacks = [checkpoint_callback, plateau_callback, stopping_callback]

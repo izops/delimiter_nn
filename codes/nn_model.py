@@ -79,6 +79,20 @@ model.compile(
     metrics = ['categorical_accuracy']
 )
 
+# define learning rate schedule function
+def lr_schedule(epoch, lr):
+    # every third epoch decrease the learning rate by 5 %
+    if epoch % 3 == 0:
+        lr = lr * 0.95
+
+    return lr
+
+# define learning rate schedule callback
+scheduler_callback = tf.keras.callbacks.LearningRateScheduler(
+    lr_schedule,
+    verbose = 1
+)
+
 # define callback for saving the model
 checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     filepath = strPathCheckpoints,
@@ -116,5 +130,10 @@ CNN_history = model.fit(
 	epochs = 50,
 	batch_size = 128,
     validation_data = (test_x, test_y),
-    callbacks = [checkpoint_callback, plateau_callback, stopping_callback]
+    callbacks = [
+        scheduler_callback,
+        checkpoint_callback,
+        plateau_callback,
+        stopping_callback
+    ]
 )

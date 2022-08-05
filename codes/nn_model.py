@@ -5,9 +5,9 @@ from tensorflow import keras
 import data_preparation as dp
 
 # set paths
-strPathData = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/sample_data.txt'
-strPathLabels = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/sample_labels.txt'
-strPathCheckpoints = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/trained_model'
+strPathData = 'data/output/sample_data.txt'
+strPathLabels = 'data/output/sample_labels.txt'
+strPathCheckpoints = 'trained_model'
 
 # set number of classes to assign in the datasets
 INT_NUM_CLASSES = 5

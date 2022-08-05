@@ -119,6 +119,3 @@ CNN_history = model.fit(
     validation_data = (test_x, test_y),
     callbacks = [checkpoint_callback, plateau_callback, stopping_callback]
 )
-
-# save the model
-model.save('trained_model/cnn')

@@ -82,7 +82,7 @@ model.compile(
 # define learning rate schedule function
 def lr_schedule(epoch, lr):
     # every third epoch decrease the learning rate by 5 %
-    if epoch % 3 == 0:
+    if epoch > 1 and epoch + 1 % 3 == 0:
         lr = lr * 0.95
 
     return lr

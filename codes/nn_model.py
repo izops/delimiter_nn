@@ -83,14 +83,14 @@ model.compile(
 checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     filepath = strPathCheckpoints,
     save_freq = 'epoch',
-    monitor = 'val_accuracy',
+    monitor = 'val_categorical_accuracy',
     mode = 'max',
     verbose = 1
 )
 
 # define callback for reducing learning rate on plateau
 plateau_callback = tf.keras.callbacks.ReduceLROnPlateau(
-    monitor = 'val_accuracy',
+    monitor = 'val_categorical_accuracy',
     factor = 0.2,
     patience = 3,
     mode = 'max',
@@ -101,7 +101,7 @@ plateau_callback = tf.keras.callbacks.ReduceLROnPlateau(
 
 # define callback for early stopping
 stopping_callback = tf.keras.callbacks.EarlyStopping(
-    monitor = 'val_accuracy',
+    monitor = 'val_categorical_accuracy',
     min_delta = 0.001,
     patience = 5,
     mode = 'max',

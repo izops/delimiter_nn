@@ -57,17 +57,16 @@ print('Conversion to tensors finished')
 
 # build a model with accuracy 97 % when trained on 1.5mil rows
 model = keras.Sequential([
-    keras.layers.Conv1D(32, kernel_size = 32, padding = 'SAME', input_shape = (100, 1)),
+    keras.layers.Conv1D(64, kernel_size = 32, padding = 'SAME', input_shape = (100, 1)),
+    keras.layers.MaxPool1D(2),
+    keras.layers.Conv1D(64, kernel_size = 32, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
     keras.layers.Conv1D(32, kernel_size = 16, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(32, kernel_size = 5),
+    keras.layers.Conv1D(32, kernel_size = 8, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
     keras.layers.Flatten(),
-    keras.layers.Dense(320, activation = 'relu'),
     keras.layers.Dense(128, activation = 'relu'),
-    keras.layers.Dense(128, activation = 'relu'),
-    keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(32, activation = 'relu'),
     keras.layers.Dense(INT_NUM_CLASSES, activation = 'softmax')

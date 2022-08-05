@@ -7,6 +7,7 @@ import data_preparation as dp
 # set paths
 strPathData = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/sample_data.txt'
 strPathLabels = 'C:/Users/IVAN.ZUSTIAK/Documents/repositories/emea_oth_nn_separator/data/output/sample_labels.txt'
+strPathCheckpoints = ''
 
 # set number of classes to assign in the datasets
 INT_NUM_CLASSES = 5
@@ -79,12 +80,44 @@ model.compile(
     metrics = ['categorical_accuracy']
 )
 
+# define callback for saving the model
+checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
+    filepath = strPathCheckpoints,
+    save_freq = 'epoch',
+    monitor = 'val_accuracy',
+    mode = 'max',
+    verbose = 1
+)
+
+# define callback for reducing learning rate on plateau
+plateau_callback = tf.keras.callbacks.ReduceLROnPlateau(
+    monitor = 'val_accuracy',
+    factor = 0.2,
+    patience = 3,
+    mode = 'max',
+    min_delta = 0.001,
+    min_lr = 0.00001,
+    verbose = 1
+)
+
+# define callback for early stopping
+stopping_callback = tf.keras.callbacks.EarlyStopping(
+    monitor = 'val_accuracy',
+    min_delta = 0.001,
+    patience = 5,
+    mode = 'max',
+    restore_best_weights = True,
+    verbose = 1
+)
+
 # train the model and save the history
-history = model.fit(
+CNN_history = model.fit(
 	train_x,
 	train_y,
 	epochs = 15,
-	batch_size = 128
+	batch_size = 128,
+    validation_data = (test_x, test_y),
+    callbacks = [checkpoint_callback, plateau_callback, stopping_callback]
 )
 
 # save the model

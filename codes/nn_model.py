@@ -85,7 +85,7 @@ def lr_schedule(epoch, lr):
     if epoch % 2 == 0:
         return lr
     else:
-        return lr * 0.95
+        return lr * 0.90
 
 # define learning rate schedule callback
 scheduler_callback = tf.keras.callbacks.LearningRateScheduler(

@@ -123,7 +123,7 @@ stopping_callback = tf.keras.callbacks.EarlyStopping(
     verbose = 1
 )
 
-# train the model and save the history
+# train the model
 CNN_history = model.fit(
 	train_x,
 	train_y,
@@ -137,3 +137,6 @@ CNN_history = model.fit(
         stopping_callback
     ]
 )
+
+# save the model history
+np.save('train_history.npy', CNN_history.history)

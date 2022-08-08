@@ -81,11 +81,16 @@ model.compile(
 
 # define learning rate schedule function
 def lr_schedule(epoch, lr):
-    # every third epoch decrease the learning rate by 5 %
-    if epoch % 2 == 0:
-        return lr
+    # set new learning rate default value
+    new_learning = lr
+
+    # change learning rate depending on the epoch
+    if epoch < 8:
+        new_learning = new_learning * 0.94
     else:
-        return lr * 0.90
+        new_learning = new_learning * 0.89
+
+    return new_learning
 
 # define learning rate schedule callback
 scheduler_callback = tf.keras.callbacks.LearningRateScheduler(

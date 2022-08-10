@@ -143,3 +143,4 @@ cython_debug/
 *.txt
 trained_model/*
 !trained_model/.keep
+*.npy

@@ -7,7 +7,7 @@ import data_preparation as dp
 # set paths
 strPathData = 'data/output/sample_data.txt'
 strPathLabels = 'data/output/sample_labels.txt'
-strPathCheckpoints = 'trained_model'
+strPathCheckpoints = 'trained_model_{epoch:02d}'
 
 # set number of classes to assign in the datasets
 INT_NUM_CLASSES = 5
@@ -124,7 +124,7 @@ stopping_callback = tf.keras.callbacks.EarlyStopping(
     min_delta = 0.001,
     patience = 5,
     mode = 'max',
-    restore_best_weights = True,
+    restore_best_weights = False,
     verbose = 1
 )
 

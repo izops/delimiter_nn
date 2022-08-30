@@ -136,5 +136,43 @@ def generate_data():
                 # increment counter
                 counter += 1
 
-# run the generator
-generate_data()
+def total_data():
+    # set the number of existing files
+    num_files = 137915
+
+    # create data and labels files
+    data_file = open('data/output/data.txt', 'w')
+    labels_file = open('data/output/labels.txt', 'w')
+
+    # append all files together
+    file_index = 0
+
+    while file_index <= num_files:
+        # read data slice
+        read_data = open('data/output/slices/' + str(file_index) + '.slices')
+
+        for row in read_data:
+            data_file.write(row)
+
+        read_data.close()
+
+        # read labels slice
+        read_label = open('data/output/slices/' + str(file_index) + '.labels')
+
+        for row in read_label:
+            labels_file.write(row)
+
+        read_label.close()
+
+        # log output
+        if file_index % 1000 == 0 and file_index > 0:
+            print(str(int(file_index / 1000)) + 'k files read')
+
+        # next slice
+        file_index += 1
+
+    # close the files
+    data_file.close()
+    labels_file.close()
+
+total_data()

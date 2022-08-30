@@ -9,7 +9,7 @@ import random
 INT_SAMPLE_ROW_COUNT = 50
 
 # set path to output files
-STR_PATH_SLICE_FILES = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/slices/'
+STR_PATH_SLICE_FILES = 'data/output/slices/'
 
 # set available separators and their labels
 DCT_SEPARATORS = {',': '0', ';': '1', '\t': '2'}
@@ -86,9 +86,9 @@ def save_bundle(p_slice, p_separator, p_name):
 def generate_data():
     # set the list of source data to be used
     source_paths = [
-        'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/vertrag.csv',
-        'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/exposure.csv',
-        'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/wtw.csv'
+        'data/sources/vertrag.csv',
+        'data/sources/exposure.csv',
+        'data/sources/wtw.csv'
     ]
     source_separators = [',', ',', ',']
     source_encoding = ['latin1', None, None]

@@ -85,3 +85,15 @@ def save_labels(p_slice, p_separator, p_name):
 
     # close the file
     labels_file.close()
+
+def save_bundle(p_slice, p_separator, p_name):
+    save_slice(p_slice, p_separator, p_name)
+    save_labels(p_slice, p_separator, p_name)
+
+def generate_data():
+    # set the list of source data to be used
+    source_paths = [
+        'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/vertrag.csv',
+        'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/exposure.csv',
+        'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/wtw.csv'
+    ]

@@ -64,14 +64,14 @@ def generate_slice(p_data):
 
 def save_slice(p_slice, p_separator, p_name):
     # create file name for slice
-    name_data = STR_PATH_SLICE_FILES + p_name + '.slices'
+    name_data = STR_PATH_SLICE_FILES + str(p_name) + '.slices'
 
     # save the slice without row indexes
     p_slice.to_csv(name_data, sep = p_separator, index = False)
 
 def save_labels(p_slice, p_separator, p_name):
     # create file name for data labels
-    name_label = STR_PATH_SLICE_FILES + p_name + '.labels'
+    name_label = STR_PATH_SLICE_FILES + str(p_name) + '.labels'
 
     # get label of the current separator
     sep_label = DCT_SEPARATORS[p_separator]
@@ -98,7 +98,7 @@ def generate_data():
         'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/wtw.csv'
     ]
     source_separators = [',', ',', ',']
-    source_encoding = [None, None, 'latin1']
+    source_encoding = ['latin1', None, None]
 
     # set the file name counter
     counter = 0

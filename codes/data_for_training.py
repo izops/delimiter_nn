@@ -129,8 +129,12 @@ def generate_data():
             if counter % 1000 == 0 and counter > 0:
                 print(str(counter/1000) + 'k files generated')
 
-            # increment counter
-            counter += 1
+            # insert safety fuse
+            if counter == 100000:
+                break
+            else:
+                # increment counter
+                counter += 1
 
 # run the generator
 generate_data()

@@ -72,3 +72,16 @@ def save_slice(p_slice, p_separator, p_name):
 def save_labels(p_slice, p_separator, p_name):
     # create file name for data labels
     name_label = STR_PATH_SLICE_FILES + p_name + '.label'
+
+    # get label of the current separator
+    sep_label = DCT_SEPARATORS[p_separator]
+
+    # create a text file with separator labels for each data row and header
+    labels_file = open(name_label, 'w')
+
+    for row_index in 0:p_slice.shape[1]:
+        # save current label in a separate row
+        labels_file.write(sep_label + '\n')
+
+    # close the file
+    labels_file.close()

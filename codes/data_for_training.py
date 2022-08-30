@@ -64,14 +64,14 @@ def generate_slice(p_data):
 
 def save_slice(p_slice, p_separator, p_name):
     # create file name for slice
-    name_data = STR_PATH_SLICE_FILES + p_name + '.slice'
+    name_data = STR_PATH_SLICE_FILES + p_name + '.slices'
 
-    # save the slice
-    p_slice.to_csv(name_data, sep = p_separator)
+    # save the slice without row indexes
+    p_slice.to_csv(name_data, sep = p_separator, index = False)
 
 def save_labels(p_slice, p_separator, p_name):
     # create file name for data labels
-    name_label = STR_PATH_SLICE_FILES + p_name + '.label'
+    name_label = STR_PATH_SLICE_FILES + p_name + '.labels'
 
     # get label of the current separator
     sep_label = DCT_SEPARATORS[p_separator]
@@ -79,7 +79,7 @@ def save_labels(p_slice, p_separator, p_name):
     # create a text file with separator labels for each data row and header
     labels_file = open(name_label, 'w')
 
-    for row_index in 0:p_slice.shape[1]:
+    for row_index in range(p_slice.shape[1] + 1):
         # save current label in a separate row
         labels_file.write(sep_label + '\n')
 
@@ -97,3 +97,43 @@ def generate_data():
         'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/exposure.csv',
         'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/wtw.csv'
     ]
+    source_separators = [',', ',', ',']
+    source_encoding = [None, None, 'latin1']
+
+    # set the file name counter
+    counter = 0
+
+    for source_index in range(len(source_paths)):
+        # read in the data
+        current_source = read_source_data(
+            source_paths[source_index],
+            source_separators[source_index],
+            source_encoding[source_index]
+        )
+
+        # calculate maximum number of iterations through the data
+        iterate = int(current_source.shape[0] * current_source.shape[1] * 0.15)
+
+        for sample_count in range(iterate):
+            # generate data slice
+            slice = generate_slice(current_source)
+
+            # randomly generate index of separator to use
+            sep_index = random.randint(0, 2)
+
+            # get the list of all separators
+            list_sep = list(DCT_SEPARATORS.keys())
+
+            # save the data and labels with the random separator, use counter
+            # as name
+            save_bundle(slice, list_sep[sep_index], counter)
+
+            # increment counter
+            counter += 1
+
+            # insert safety fuse
+            if counter == 100000:
+                break
+
+# run the generator
+generate_data()

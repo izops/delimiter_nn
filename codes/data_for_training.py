@@ -14,13 +14,6 @@ STR_PATH_SLICE_FILES = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/
 # set available separators and their labels
 DCT_SEPARATORS = {',': '0', ';': '1', '\t': '2'}
 
-# set path to data
-str_data_path = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/vertrag.csv'
-str_data_path = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/exposure.csv'
-
-# import source file to memory
-data_source = pd.read_csv(str_data_path, encoding = 'latin1')
-
 def read_source_data(pstr_file_path, pstrSep, p_encoding = None):
     if p_encoding is None:
         loaded_data = pd.read_csv(pstr_file_path, sep = pstrSep)
@@ -127,6 +120,10 @@ def generate_data():
             # save the data and labels with the random separator, use counter
             # as name
             save_bundle(slice, list_sep[sep_index], counter)
+
+            # print checkpoints
+            if counter % 1000 == 0 and counter > 0:
+                print(str(counter/1000) + 'k files generated')
 
             # increment counter
             counter += 1

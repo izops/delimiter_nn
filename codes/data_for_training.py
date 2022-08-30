@@ -97,6 +97,10 @@ def generate_data():
     counter = 0
 
     for source_index in range(len(source_paths)):
+        # insert safety fuse
+        if counter == 100000:
+            break
+
         # read in the data
         current_source = read_source_data(
             source_paths[source_index],
@@ -127,10 +131,6 @@ def generate_data():
 
             # increment counter
             counter += 1
-
-            # insert safety fuse
-            if counter == 100000:
-                break
 
 # run the generator
 generate_data()

@@ -3,8 +3,16 @@
 import pandas as pd
 import random
 
+# set constants
+
 # set size of the data sample
 INT_SAMPLE_ROW_COUNT = 50
+
+# set path to output files
+STR_PATH_SLICE_FILES = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/output/slices/'
+
+# set available separators and their labels
+DCT_SEPARATORS = {',': '0', ';': '1', '\t': '2'}
 
 # set path to data
 str_data_path = 'c:/Users/ivan.zustiak/OneDrive - Zurich Insurance/snake/emea_oth_nn_separator/data/sources/vertrag.csv'
@@ -54,5 +62,13 @@ def generate_slice(p_data):
 
     return slice
 
-asdf = generate_slice(data_source)
-print(asdf.head())
+def save_slice(p_slice, p_separator, p_name):
+    # create file name for slice
+    name_data = STR_PATH_SLICE_FILES + p_name + '.slice'
+
+    # save the slice
+    p_slice.to_csv(name_data, sep = p_separator)
+
+def save_labels(p_slice, p_separator, p_name):
+    # create file name for data labels
+    name_label = STR_PATH_SLICE_FILES + p_name + '.label'

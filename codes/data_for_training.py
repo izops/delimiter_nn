@@ -72,7 +72,7 @@ def save_labels(p_slice, p_separator, p_name):
     # create a text file with separator labels for each data row and header
     labels_file = open(name_label, 'w')
 
-    for row_index in range(p_slice.shape[1] + 1):
+    for row_index in range(p_slice.shape[1]):
         # save current label in a separate row
         labels_file.write(sep_label + '\n')
 

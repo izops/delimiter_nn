@@ -109,7 +109,7 @@ def generate_data():
         )
 
         # calculate maximum number of iterations through the data
-        iterate = int(current_source.shape[0] * current_source.shape[1] * 0.15)
+        iterate = int(current_source.shape[0] * current_source.shape[1] * 0.12)
 
         for sample_count in range(iterate):
             # generate data slice

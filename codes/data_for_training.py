@@ -59,8 +59,8 @@ def save_slice(p_slice, p_separator, p_name):
     # create file name for slice
     name_data = STR_PATH_SLICE_FILES + str(p_name) + '.slices'
 
-    # save the slice without row indexes
-    p_slice.to_csv(name_data, sep = p_separator, index = False)
+    # save the slice without row indexes and without header
+    p_slice.to_csv(name_data, sep = p_separator, index = False, header = False)
 
 def save_labels(p_slice, p_separator, p_name):
     # create file name for data labels
@@ -69,10 +69,10 @@ def save_labels(p_slice, p_separator, p_name):
     # get label of the current separator
     sep_label = DCT_SEPARATORS[p_separator]
 
-    # create a text file with separator labels for each data row and header
+    # create a text file with separator labels for each data row without header
     labels_file = open(name_label, 'w')
 
-    for row_index in range(p_slice.shape[0] + 1):
+    for row_index in range(p_slice.shape[0]):
         # save current label in a separate row
         labels_file.write(sep_label + '\n')
 
@@ -86,12 +86,14 @@ def save_bundle(p_slice, p_separator, p_name):
 def generate_data():
     # set the list of source data to be used
     source_paths = [
-        'data/sources/vertrag.csv',
-        'data/sources/exposure.csv',
-        'data/sources/wtw.csv'
+        'data/sources/nz_data1.csv',
+        'data/sources/nz_data3.csv',
+        'data/sources/nz_data5.csv',
+        'data/sources/nz_data6.csv',
+        'data/sources/gr_data1.asc'
     ]
-    source_separators = [',', ',', ',']
-    source_encoding = ['latin1', None, None]
+    source_separators = [',', ',', ',', ',', ';']
+    source_encoding = [None, None, None, None, 'latin1']
 
     # set the file name counter
     counter = 0
@@ -109,7 +111,7 @@ def generate_data():
         )
 
         # calculate maximum number of iterations through the data
-        iterate = int(current_source.shape[0] * current_source.shape[1] * 0.12)
+        iterate = int(current_source.shape[0] * current_source.shape[1] * 0.2)
 
         for sample_count in range(iterate):
             # generate data slice
@@ -130,7 +132,7 @@ def generate_data():
                 print(str(counter/1000) + 'k files generated')
 
             # insert safety fuse
-            if counter == 100000:
+            if counter % 20000 == 0:
                 break
             else:
                 # increment counter

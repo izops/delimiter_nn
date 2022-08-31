@@ -258,7 +258,7 @@ def create_single_training_data():
     Outputs: None, creates single data file and single labels file appended from
         all available slice and label files in pre-defined folder
     '''
-    
+
     # create data and labels files
     data_file = open('data/output/data.txt', 'w')
     labels_file = open('data/output/labels.txt', 'w')
@@ -303,6 +303,14 @@ def create_single_training_data():
     labels_file.close()
 
 def delete_slices():
+    '''
+    Deletes all files in a specified folder
+
+    Inputs: None
+
+    Outputs: None, removes all files from a folder
+    '''
+    
     # define counter
     counter = 0
 

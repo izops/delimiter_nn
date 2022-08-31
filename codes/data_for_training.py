@@ -250,6 +250,15 @@ def generate_data_slices():
                 break
 
 def create_single_training_data():
+    '''
+    Loops through a folder with slice and label files and joins them into one
+
+    Inputs: None
+
+    Outputs: None, creates single data file and single labels file appended from
+        all available slice and label files in pre-defined folder
+    '''
+    
     # create data and labels files
     data_file = open('data/output/data.txt', 'w')
     labels_file = open('data/output/labels.txt', 'w')

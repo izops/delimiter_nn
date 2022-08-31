@@ -2,6 +2,7 @@
 
 import pandas as pd
 import random
+import os
 
 # set constants
 
@@ -15,6 +16,17 @@ STR_PATH_SLICE_FILES = 'data/output/slices/'
 DCT_SEPARATORS = {',': '0', ';': '1', '\t': '2'}
 
 def read_source_data(pstr_file_path, pstrSep, p_encoding = None):
+    '''
+    Reads data from csv file with given separator and encoding
+
+    Inputs:
+        pstr_file_path - full path to the file to be open
+        pstrSep - data delimiter in the file
+        p_encoding - data encoding if needed, defaults to pandas default
+
+    Output:
+        returns pandas dataset loaded from the path
+    '''
     if p_encoding is None:
         loaded_data = pd.read_csv(pstr_file_path, sep = pstrSep)
     else:
@@ -83,7 +95,7 @@ def save_bundle(p_slice, p_separator, p_name):
     save_slice(p_slice, p_separator, p_name)
     save_labels(p_slice, p_separator, p_name)
 
-def generate_data():
+def generate_data_slices():
     # set the list of source data to be used
     source_paths = [
         'data/sources/nz_data1.csv',
@@ -138,7 +150,7 @@ def generate_data():
                 # increment counter
                 counter += 1
 
-def total_data():
+def create_single_training_data():
     # set the number of existing files
     num_files = 137915
 

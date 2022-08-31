@@ -170,7 +170,7 @@ def save_bundle(p_slice, p_separator, p_name):
         p_slice,
         pd.DataFrame
     ), 'Input must be a pandas data frame'
-    
+
     save_slice(p_slice, p_separator, p_name)
     save_labels(p_slice, p_separator, p_name)
 
@@ -187,11 +187,11 @@ def generate_data_slices():
     source_encoding = [None, None, None, None, 'latin1']
 
     # set the file name counter
-    counter = 0
+    counter_total = 0
 
     for source_index in range(len(source_paths)):
         # insert safety fuse
-        if counter == 120000:
+        if counter_total == 120000:
             break
 
         # add log output
@@ -206,6 +206,9 @@ def generate_data_slices():
 
         # calculate maximum number of iterations through the data
         iterate = int(current_source.shape[0] * current_source.shape[1] * 0.2)
+
+        # set file counter
+        counter_file = 0
 
         for sample_count in range(iterate):
             # generate data slice
@@ -222,52 +225,56 @@ def generate_data_slices():
             save_bundle(slice, list_sep[sep_index], counter)
 
             # print checkpoints
-            if counter % 1000 == 0 and counter > 0:
-                print(str(counter/1000) + 'k files generated')
+            if counter_file % 1000 == 0 and counter_file > 0:
+                print(int(str(counter_file/1000)) + 'k files generated')
 
             # insert safety fuse
-            if counter % 20000 == 0 and counter > 0:
-                # increment counter and break the loop
-                counter += 1
+            if counter_file % 20000 == 0 and counter_file > 0:
+                # increment counters and break the loop
+                counter_file += 1
+                counter_total += 1
                 break
             else:
-                # increment counter
-                counter += 1
+                # increment counters
+                counter_file += 1
+                counter_total += 1
 
 def create_single_training_data():
-    # set the number of existing files
-    num_files = 120000
-
     # create data and labels files
     data_file = open('data/output/data.txt', 'w')
     labels_file = open('data/output/labels.txt', 'w')
 
     # append all files together
     file_index = 0
+    blnContinue = True
 
-    while file_index <= num_files:
-        # read data slice
-        read_data = open('data/output/slices/' + str(file_index) + '.slices')
+    while blnContinue:
+        try:
+            # read data slice
+            read_data = open('data/output/slices/' + str(file_index) + '.slices')
 
-        for row in read_data:
-            data_file.write(row)
+            for row in read_data:
+                data_file.write(row)
 
-        read_data.close()
+            read_data.close()
 
-        # read labels slice
-        read_label = open('data/output/slices/' + str(file_index) + '.labels')
+            # read labels slice
+            read_label = open('data/output/slices/' + str(file_index) + '.labels')
 
-        for row in read_label:
-            labels_file.write(row)
+            for row in read_label:
+                labels_file.write(row)
 
-        read_label.close()
+            read_label.close()
 
-        # log output
-        if file_index % 1000 == 0 and file_index > 0:
-            print(str(int(file_index / 1000)) + 'k files read')
+            # log output
+            if file_index % 1000 == 0 and file_index > 0:
+                print(str(int(file_index / 1000)) + 'k files read')
 
-        # next slice
-        file_index += 1
+            # next slice
+            file_index += 1
+        except:
+            print('All files were read')
+            blnContinue = False
 
     # close the files
     data_file.close()
@@ -277,7 +284,7 @@ def delete_slices():
     # delete all files and folders in a folder
     for filename in os.listdir(STR_PATH_SLICE_FILES):
         # get object name
-        file_path = os.path.join(folder, filename)
+        file_path = os.path.join(STR_PATH_SLICE_FILES, filename)
         try:
             if os.path.isfile(file_path) or os.path.islink(file_path):
                 # delete file
@@ -290,6 +297,6 @@ def delete_slices():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 # generate slices and training data, and clean up the work files
-generate_data_slices()
-create_single_training_data()
+# generate_data_slices()
+# create_single_training_data()
 delete_slices()

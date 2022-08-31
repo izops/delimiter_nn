@@ -27,6 +27,11 @@ def read_source_data(pstr_file_path, pstrSep, p_encoding = None):
     Output:
         returns pandas dataset loaded from the path
     '''
+
+    # check input
+    assert os.path.isfile(pstr_file_path), 'File doesn\'t exist'
+
+    # import data to pandas data frame based on the input separator and encoding
     if p_encoding is None:
         loaded_data = pd.read_csv(pstr_file_path, sep = pstrSep)
     else:

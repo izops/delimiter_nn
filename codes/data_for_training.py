@@ -175,6 +175,9 @@ def generate_data_slices():
         if counter == 120000:
             break
 
+        # add log output
+        print('Reading ' + source_paths[source_index])
+
         # read in the data
         current_source = read_source_data(
             source_paths[source_index],
@@ -204,7 +207,7 @@ def generate_data_slices():
                 print(str(counter/1000) + 'k files generated')
 
             # insert safety fuse
-            if counter % 20000 == 0:
+            if counter % 20000 == 0 and counter > 0:
                 break
             else:
                 # increment counter

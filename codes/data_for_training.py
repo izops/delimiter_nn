@@ -233,7 +233,7 @@ def generate_data_slices():
             counter_total += 1
 
             # insert safety fuse
-            if (counter_file - 1) % 20000 == 0 and counter_file > 0:
+            if (counter_file - 1) % 20000 == 0 and (counter_file - 1) > 0:
                 # break the loop at 20k files
                 break
 

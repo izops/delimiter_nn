@@ -102,7 +102,7 @@ def save_slice(p_slice, p_separator, p_name):
 
     # check input
     assert isinstance(p_data, pd.DataFrame), 'Input must be a pandas data frame'
-    
+
     # create file name for slice
     name_data = STR_PATH_SLICE_FILES + str(p_name) + '.slices'
 
@@ -110,6 +110,24 @@ def save_slice(p_slice, p_separator, p_name):
     p_slice.to_csv(name_data, sep = p_separator, index = False, header = False)
 
 def save_labels(p_slice, p_separator, p_name):
+    '''
+    Saves labels for each row of a pandas data frame without header and row
+    indexes to the pre-defined location. Each separator has pre-defined label
+    value. File is saved as delimited text file with given name. Saves file as
+    '.labels' file
+
+    Inputs:
+        p_slice - pandas data frame which rows will be labeled
+        p_separator - delimiter used in the slice file to be labeled
+        p_name - name of the output file that should be used
+
+    Outputs:
+        doesn't return anything, saves labels in a text file
+    '''
+
+    # check input
+    assert isinstance(p_data, pd.DataFrame), 'Input must be a pandas data frame'
+    
     # create file name for data labels
     name_label = STR_PATH_SLICE_FILES + str(p_name) + '.labels'
 

@@ -3,6 +3,7 @@
 import pandas as pd
 import random
 import os
+import shutil
 
 # set constants
 
@@ -127,7 +128,7 @@ def save_labels(p_slice, p_separator, p_name):
 
     # check input
     assert isinstance(p_data, pd.DataFrame), 'Input must be a pandas data frame'
-    
+
     # create file name for data labels
     name_label = STR_PATH_SLICE_FILES + str(p_name) + '.labels'
 
@@ -165,7 +166,7 @@ def generate_data_slices():
 
     for source_index in range(len(source_paths)):
         # insert safety fuse
-        if counter == 100000:
+        if counter == 120000:
             break
 
         # read in the data
@@ -205,7 +206,7 @@ def generate_data_slices():
 
 def create_single_training_data():
     # set the number of existing files
-    num_files = 137915
+    num_files = 120000
 
     # create data and labels files
     data_file = open('data/output/data.txt', 'w')
@@ -242,4 +243,23 @@ def create_single_training_data():
     data_file.close()
     labels_file.close()
 
-total_data()
+def delete_slices():
+    # delete all files and folders in a folder
+    for filename in os.listdir(STR_PATH_SLICE_FILES):
+        # get object name
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                # delete file
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                # delete folder
+                shutil.rmtree(file_path)
+        except Exception as e:
+            # show what happened in case of an error
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+# generate slices and training data, and clean up the work files
+generate_data_slices()
+create_single_training_data()
+delete_slices()

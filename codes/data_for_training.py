@@ -102,7 +102,10 @@ def save_slice(p_slice, p_separator, p_name):
     '''
 
     # check input
-    assert isinstance(p_data, pd.DataFrame), 'Input must be a pandas data frame'
+    assert isinstance(
+        p_slice,
+        pd.DataFrame
+    ), 'Input must be a pandas data frame'
 
     # create file name for slice
     name_data = STR_PATH_SLICE_FILES + str(p_name) + '.slices'
@@ -127,7 +130,10 @@ def save_labels(p_slice, p_separator, p_name):
     '''
 
     # check input
-    assert isinstance(p_data, pd.DataFrame), 'Input must be a pandas data frame'
+    assert isinstance(
+        p_slice,
+        pd.DataFrame
+    ), 'Input must be a pandas data frame'
 
     # create file name for data labels
     name_label = STR_PATH_SLICE_FILES + str(p_name) + '.labels'

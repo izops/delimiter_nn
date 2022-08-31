@@ -46,6 +46,7 @@ def read_source_data(pstr_file_path, pstrSep, p_encoding = None):
         )
 
     return loaded_data
+# END - read_source_data -------------------------------------------------------
 
 def generate_slice(p_data):
     '''
@@ -88,6 +89,7 @@ def generate_slice(p_data):
     slice = slice.iloc[:, col_indexes]
 
     return slice
+# END - generate_slice ---------------------------------------------------------
 
 def save_slice(p_slice, p_separator, p_name):
     '''
@@ -115,6 +117,7 @@ def save_slice(p_slice, p_separator, p_name):
 
     # save the slice without row indexes and without header
     p_slice.to_csv(name_data, sep = p_separator, index = False, header = False)
+# END - save_slice -------------------------------------------------------------
 
 def save_labels(p_slice, p_separator, p_name):
     '''
@@ -153,6 +156,7 @@ def save_labels(p_slice, p_separator, p_name):
 
     # close the file
     labels_file.close()
+# END - save_labels ------------------------------------------------------------
 
 def save_bundle(p_slice, p_separator, p_name):
     '''
@@ -176,6 +180,7 @@ def save_bundle(p_slice, p_separator, p_name):
 
     save_slice(p_slice, p_separator, p_name)
     save_labels(p_slice, p_separator, p_name)
+# END - save_bundle ------------------------------------------------------------
 
 def generate_data_slices():
     '''
@@ -248,6 +253,7 @@ def generate_data_slices():
             if (counter_file - 1) % 20000 == 0 and (counter_file - 1) > 0:
                 # break the loop at 20k files
                 break
+# END - generate_data_slices ---------------------------------------------------
 
 def create_single_training_data():
     '''
@@ -301,6 +307,7 @@ def create_single_training_data():
     # close the files
     data_file.close()
     labels_file.close()
+# END - create_single_training_data --------------------------------------------
 
 def delete_slices():
     '''
@@ -310,7 +317,7 @@ def delete_slices():
 
     Outputs: None, removes all files from a folder
     '''
-    
+
     # define counter
     counter = 0
 
@@ -338,6 +345,7 @@ def delete_slices():
 
         # increment counter
         counter += 1
+# END - delete_slices ----------------------------------------------------------
 
 # generate slices and training data, and clean up the work files
 generate_data_slices()

@@ -220,24 +220,22 @@ def generate_data_slices():
             # get the list of all separators
             list_sep = list(DCT_SEPARATORS.keys())
 
-            # save the data and labels with the random separator, use counter
-            # as name
-            save_bundle(slice, list_sep[sep_index], counter)
+            # save the data and labels with the random separator, use
+            # total counter as name
+            save_bundle(slice, list_sep[sep_index], counter_total)
 
             # print checkpoints
             if counter_file % 1000 == 0 and counter_file > 0:
-                print(int(str(counter_file/1000)) + 'k files generated')
+                print(str(int(counter_file/1000)) + 'k files generated')
+
+            # increment counters
+            counter_file += 1
+            counter_total += 1
 
             # insert safety fuse
-            if counter_file % 20000 == 0 and counter_file > 0:
-                # increment counters and break the loop
-                counter_file += 1
-                counter_total += 1
+            if counter_file % 20001 == 0 and counter_file > 0:
+                # break the loop at 20k files
                 break
-            else:
-                # increment counters
-                counter_file += 1
-                counter_total += 1
 
 def create_single_training_data():
     # create data and labels files
@@ -308,6 +306,6 @@ def delete_slices():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 # generate slices and training data, and clean up the work files
-# generate_data_slices()
-# create_single_training_data()
+generate_data_slices()
+create_single_training_data()
 delete_slices()

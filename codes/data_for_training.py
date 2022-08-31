@@ -10,6 +10,9 @@ import shutil
 # set size of the data sample
 INT_SAMPLE_ROW_COUNT = 50
 
+# set maximum number of slice files
+INT_MAXIMUM_SLICE_COUNT = 120000
+
 # set path to output files
 STR_PATH_SLICE_FILES = 'data/output/slices/'
 
@@ -183,7 +186,7 @@ def generate_data_slices():
 
     Outputs: None, generates pre-defined number of slice and label files
     '''
-    
+
     # set the list of source data to be used
     source_paths = [
         'data/sources/nz_data1.csv',
@@ -200,7 +203,7 @@ def generate_data_slices():
 
     for source_index in range(len(source_paths)):
         # insert safety fuse
-        if counter_total == 120000:
+        if counter_total == INT_MAXIMUM_SLICE_COUNT:
             break
 
         # add log output

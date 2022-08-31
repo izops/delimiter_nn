@@ -86,6 +86,23 @@ def generate_slice(p_data):
     return slice
 
 def save_slice(p_slice, p_separator, p_name):
+    '''
+    Saves pandas data frame without header and row indexes to the pre-defined
+    location using selected separator for csv output and with given name. Saves
+    file as '.slices' file
+
+    Inputs:
+        p_slice - pandas data frame to be saved
+        p_separator - delimiter to be used in the output file
+        p_name - name of the file that should be used
+
+    Outputs:
+        doesn't return anything, saves pandas data frame as delimited text file
+    '''
+
+    # check input
+    assert isinstance(p_data, pd.DataFrame), 'Input must be a pandas data frame'
+    
     # create file name for slice
     name_data = STR_PATH_SLICE_FILES + str(p_name) + '.slices'
 

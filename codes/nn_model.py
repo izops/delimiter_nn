@@ -7,7 +7,7 @@ import data_preparation as dp
 # set paths
 strPathData = 'data/output/sample_data.txt'
 strPathLabels = 'data/output/sample_labels.txt'
-strPathCheckpoints = 'trained_model_{epoch:02d}'
+strPathCheckpoints = 'trained_model/epoch_{epoch:02d}'
 
 # set number of classes to assign in the datasets
 INT_NUM_CLASSES = 5

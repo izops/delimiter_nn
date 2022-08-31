@@ -208,6 +208,8 @@ def generate_data_slices():
 
             # insert safety fuse
             if counter % 20000 == 0 and counter > 0:
+                # increment counter and break the loop
+                counter += 1
                 break
             else:
                 # increment counter

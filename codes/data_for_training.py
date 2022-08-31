@@ -258,6 +258,9 @@ def create_single_training_data():
     file_index = 0
     blnContinue = True
 
+    # output log message
+    print('Appending slice and label files to a single data and slice file')
+
     while blnContinue:
         try:
             # read data slice
@@ -293,6 +296,9 @@ def create_single_training_data():
 def delete_slices():
     # define counter
     counter = 0
+
+    # output log message
+    print('Deleting slice and label files')
 
     # delete all files and folders in a folder
     for filename in os.listdir(STR_PATH_SLICE_FILES):

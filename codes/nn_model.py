@@ -66,7 +66,13 @@ model = keras.Sequential([
     keras.layers.Conv1D(32, kernel_size = 8, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
     keras.layers.Flatten(),
+    keras.layers.Dense(512, activation = 'relu'),
+    keras.layers.Dense(256, activation = 'relu'),
     keras.layers.Dense(128, activation = 'relu'),
+    keras.layers.Dense(128, activation = 'relu'),
+    keras.layers.Dense(64, activation = 'relu'),
+    keras.layers.Dense(64, activation = 'relu'),
+    keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(32, activation = 'relu'),
     keras.layers.Dense(INT_NUM_CLASSES, activation = 'softmax')
@@ -85,7 +91,9 @@ def lr_schedule(epoch, lr):
     new_learning = lr
 
     # change learning rate depending on the epoch
-    if epoch > 0 and epoch < 8:
+    if epoch >= 0 and epoch < 4:
+        new_learning = new_learning * 1
+    elif epoch >= 4 and epoch < 8:
         new_learning = new_learning * 0.94
     elif epoch >= 8:
         new_learning = new_learning * 0.89

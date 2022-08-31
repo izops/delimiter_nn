@@ -175,6 +175,15 @@ def save_bundle(p_slice, p_separator, p_name):
     save_labels(p_slice, p_separator, p_name)
 
 def generate_data_slices():
+    '''
+    Loops through the available files and generates from them data slices and
+    their respective label files.
+
+    Inputs: None
+
+    Outputs: None, generates pre-defined number of slice and label files
+    '''
+    
     # set the list of source data to be used
     source_paths = [
         'data/sources/nz_data1.csv',

@@ -91,7 +91,7 @@ def lr_schedule(epoch, lr):
     new_learning = lr
 
     # change learning rate depending on the epoch
-    if epoch >= 0 and epoch < 8:
+    if epoch > 0 and epoch < 8:
         new_learning = new_learning * 0.92
     elif epoch >= 8:
         new_learning = new_learning * 0.89

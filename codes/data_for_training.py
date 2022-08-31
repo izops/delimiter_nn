@@ -44,6 +44,19 @@ def read_source_data(pstr_file_path, pstrSep, p_encoding = None):
     return loaded_data
 
 def generate_slice(p_data):
+    '''
+    Generates a pandas data frame with random width and fixed number of rows
+
+    Inputs:
+        p_data - pandas data frame used as a basis for generating the data slice
+
+    Output:
+        pandas data frame with fixed width and random number of columns
+    '''
+
+    # check input
+    assert isinstance(p_data, pd.DataFrame), 'Input must be a pandas data frame'
+
     # get the dimensions of the source data
     data_size = p_data.shape
 

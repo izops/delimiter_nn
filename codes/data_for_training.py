@@ -152,6 +152,25 @@ def save_labels(p_slice, p_separator, p_name):
     labels_file.close()
 
 def save_bundle(p_slice, p_separator, p_name):
+    '''
+    Helper function to save slices and labels with one command. Calls already
+    defined procedures to save file slice and corresponding delimiter.
+
+    Inputs:
+        p_slice - pandas data frame that will be saved and labeled
+        p_separator - data delimiter to be used and labeled
+        p_name - name of the slice and the corresponding label file
+
+    Outputs:
+        doesn't output anything, saves delimited file and labels
+    '''
+
+    # check input
+    assert isinstance(
+        p_slice,
+        pd.DataFrame
+    ), 'Input must be a pandas data frame'
+    
     save_slice(p_slice, p_separator, p_name)
     save_labels(p_slice, p_separator, p_name)
 

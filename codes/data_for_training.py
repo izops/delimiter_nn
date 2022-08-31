@@ -316,7 +316,7 @@ def delete_slices():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
         # log number of deleted files
-        if counter % 1000 and counter > 0:
+        if counter % 1000 == 0 and counter > 0:
             print(str(int(counter/1000)) + 'k objects deleted')
 
         # increment counter

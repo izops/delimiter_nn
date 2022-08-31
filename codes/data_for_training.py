@@ -311,17 +311,16 @@ def delete_slices():
             elif os.path.isdir(file_path):
                 # delete folder
                 shutil.rmtree(file_path)
-
-            # log number of deleted files
-            if counter % 1000 and counter > 0:
-                print(str(int(counter/1000)) + 'k objects deleted')
-
-            # increment counter
-            counter += 1
-
         except Exception as e:
             # show what happened in case of an error
             print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+        # log number of deleted files
+        if counter % 1000 and counter > 0:
+            print(str(int(counter/1000)) + 'k objects deleted')
+
+        # increment counter
+        counter += 1
 
 # generate slices and training data, and clean up the work files
 generate_data_slices()

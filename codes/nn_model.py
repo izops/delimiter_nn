@@ -66,13 +66,7 @@ model = keras.Sequential([
     keras.layers.Conv1D(32, kernel_size = 8, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
     keras.layers.Flatten(),
-    keras.layers.Dense(512, activation = 'relu'),
-    keras.layers.Dense(256, activation = 'relu'),
     keras.layers.Dense(128, activation = 'relu'),
-    keras.layers.Dense(128, activation = 'relu'),
-    keras.layers.Dense(64, activation = 'relu'),
-    keras.layers.Dense(64, activation = 'relu'),
-    keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(32, activation = 'relu'),
     keras.layers.Dense(INT_NUM_CLASSES, activation = 'softmax')

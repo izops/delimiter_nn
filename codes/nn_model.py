@@ -13,7 +13,7 @@ strPathCheckpoints = 'trained_model/epoch_{epoch:02d}'
 INT_NUM_CLASSES = 3
 
 # set the size of the data subsets
-DATA_SIZE_TRAIN = 0.9
+DATA_SIZE_TRAIN = 0.7
 
 print('Importing the data')
 

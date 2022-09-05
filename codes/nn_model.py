@@ -94,7 +94,7 @@ def lr_schedule(epoch, lr):
     if epoch > 0 and epoch < 8:
         new_learning = new_learning * 0.92
     elif epoch >= 8:
-        new_learning = new_learning * 0.89
+        new_learning = new_learning * 0.67
 
     return new_learning
 

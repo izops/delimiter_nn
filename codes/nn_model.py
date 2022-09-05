@@ -10,7 +10,7 @@ strPathLabels = 'data/output/sample_labels.txt'
 strPathCheckpoints = 'trained_model/epoch_{epoch:02d}'
 
 # set number of classes to assign in the datasets
-INT_NUM_CLASSES = 5
+INT_NUM_CLASSES = 3
 
 # set the size of the data subsets
 DATA_SIZE_TRAIN = 0.9

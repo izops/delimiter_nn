@@ -13,7 +13,7 @@ strPathCheckpoints = 'trained_model/epoch_{epoch:02d}'
 INT_NUM_CLASSES = 3
 
 # set the size of the data subsets
-DATA_SIZE_TRAIN = 0.7
+DATA_SIZE_TRAIN = 0.85
 
 print('Importing the data')
 
@@ -57,19 +57,23 @@ print('Conversion to tensors finished')
 
 # build a model with accuracy 97 % when trained on 1.5mil rows
 model = keras.Sequential([
-    keras.layers.Conv1D(64, kernel_size = 32, padding = 'SAME', input_shape = (100, 1)),
+    keras.layers.Conv1D(64, kernel_size = 8, padding = 'SAME', input_shape = (100, 1)),
+    keras.layers.Conv1D(64, kernel_size = 8, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(64, kernel_size = 32, padding = 'SAME'),
+    keras.layers.Dropout(0.7),
+    keras.layers.BatchNormalization(),
+    keras.layers.Conv1D(128, kernel_size = 4, padding = 'SAME'),
+    keras.layers.Conv1D(128, kernel_size = 4, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(32, kernel_size = 16, padding = 'SAME'),
-    keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(32, kernel_size = 8, padding = 'SAME'),
-    keras.layers.MaxPool1D(2),
+    keras.layers.Dropout(0.3),
+    keras.layers.BatchNormalization(),
+    keras.layers.Conv1D(256, kernel_size = 2, padding = 'SAME'),
+    keras.layers.Conv1D(256, kernel_size = 2, padding = 'SAME'),
     keras.layers.Flatten(),
+    keras.layers.Dense(256, activation = 'relu'),
     keras.layers.Dense(128, activation = 'relu'),
-    keras.layers.Dense(64, activation = 'relu'),
     keras.layers.Dense(32, activation = 'relu'),
-    keras.layers.Dense(INT_NUM_CLASSES, activation = 'softmax')
+    keras.layers.Dense(3, activation = 'softmax')
 ])
 
 # compile the neural network
@@ -86,9 +90,9 @@ def lr_schedule(epoch, lr):
 
     # change learning rate depending on the epoch
     if epoch > 0 and epoch < 8:
-        new_learning = new_learning * 0.92
+        new_learning = new_learning * 0.98
     elif epoch >= 8:
-        new_learning = new_learning * 0.67
+        new_learning = new_learning * 0.94
 
     return new_learning
 
@@ -136,7 +140,6 @@ CNN_history = model.fit(
 	batch_size = 128,
     validation_data = (test_x, test_y),
     callbacks = [
-        scheduler_callback,
         checkpoint_callback,
         plateau_callback,
         stopping_callback

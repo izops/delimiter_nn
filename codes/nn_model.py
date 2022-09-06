@@ -59,16 +59,24 @@ print('Conversion to tensors finished')
 model = keras.Sequential([
     keras.layers.Conv1D(64, kernel_size = 8, padding = 'SAME', input_shape = (100, 1)),
     keras.layers.Conv1D(64, kernel_size = 8, padding = 'SAME'),
+    keras.layers.Conv1D(32, kernel_size = 1, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Dropout(0.7),
+    keras.layers.Dropout(0.3),
     keras.layers.BatchNormalization(),
     keras.layers.Conv1D(128, kernel_size = 4, padding = 'SAME'),
     keras.layers.Conv1D(128, kernel_size = 4, padding = 'SAME'),
+    keras.layers.Conv1D(64, kernel_size = 1, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
     keras.layers.Dropout(0.3),
     keras.layers.BatchNormalization(),
     keras.layers.Conv1D(256, kernel_size = 2, padding = 'SAME'),
     keras.layers.Conv1D(256, kernel_size = 2, padding = 'SAME'),
+    keras.layers.Conv1D(128, kernel_size = 1, padding = 'SAME'),
+    keras.layers.MaxPool1D(2),
+    keras.layers.Conv1D(512, kernel_size = 2, padding = 'SAME'),
+    keras.layers.Conv1D(512, kernel_size = 2, padding = 'SAME'),
+    keras.layers.Conv1D(128, kernel_size = 1, padding = 'SAME'),
+    keras.layers.MaxPool1D(2),
     keras.layers.Flatten(),
     keras.layers.Dense(256, activation = 'relu'),
     keras.layers.Dense(128, activation = 'relu'),
@@ -89,10 +97,10 @@ def lr_schedule(epoch, lr):
     new_learning = lr
 
     # change learning rate depending on the epoch
-    if epoch > 0 and epoch < 8:
-        new_learning = new_learning * 0.98
-    elif epoch >= 8:
-        new_learning = new_learning * 0.94
+    if epoch > 0 and epoch < 10:
+        new_learning = new_learning * 0.99
+    elif epoch >= 10:
+        new_learning = new_learning * 0.85
 
     return new_learning
 
@@ -142,7 +150,8 @@ CNN_history = model.fit(
     callbacks = [
         checkpoint_callback,
         plateau_callback,
-        stopping_callback
+        stopping_callback,
+        scheduler_callback
     ]
 )
 

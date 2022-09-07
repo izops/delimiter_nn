@@ -37,12 +37,13 @@ def read_source_data(pstr_file_path, pstrSep, p_encoding = None):
 
     # import data to pandas data frame based on the input separator and encoding
     if p_encoding is None:
-        loaded_data = pd.read_csv(pstr_file_path, sep = pstrSep)
+        loaded_data = pd.read_csv(pstr_file_path, sep = pstrSep, low_memory = False)
     else:
         loaded_data = pd.read_csv(
             pstr_file_path,
             sep = pstrSep,
-            encoding = p_encoding
+            encoding = p_encoding,
+            low_memory = False
         )
 
     return loaded_data

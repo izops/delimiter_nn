@@ -2,6 +2,7 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
+from random import shuffle
 import data_preparation as dp
 
 # set paths
@@ -38,11 +39,18 @@ data_test = np.array(lstDataTest)
 labels_train = np.array(lstLabelsTrain)
 labels_test = np.array(lstLabelsTest)
 
+# shuffle training data
+lstNewOrder = list(range(data_train.shape[0]))
+shuffle(lstNewOrder)
+data_train = data_train[lstNewOrder, :]
+labels_train = labels_train[lstNewOrder, ]
+
 # normalize the data
 train_x = data_train / 127.0
 test_x = data_test / 127.0
 labels_train = labels_train / 1.0
 labels_test = labels_test / 1.0
+
 # convert labels to one hot
 train_y = tf.one_hot(labels_train, depth = INT_NUM_CLASSES)
 test_y = tf.one_hot(labels_test, depth = INT_NUM_CLASSES)
@@ -55,28 +63,20 @@ train_data = tf.data.Dataset.from_tensor_slices((train_x, train_y)).batch(16)
 test_data = tf.data.Dataset.from_tensor_slices((test_x, test_y)).batch(16)
 print('Conversion to tensors finished')
 
-# build a model with accuracy 97 % when trained on 1.5mil rows
+# define a keras model structure
 model = keras.Sequential([
     keras.layers.Conv1D(64, kernel_size = 8, padding = 'SAME', input_shape = (100, 1)),
     keras.layers.Conv1D(64, kernel_size = 8, padding = 'SAME'),
-    keras.layers.Conv1D(32, kernel_size = 1, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
-    keras.layers.Dropout(0.3),
+    keras.layers.Dropout(0.7),
     keras.layers.BatchNormalization(),
     keras.layers.Conv1D(128, kernel_size = 4, padding = 'SAME'),
     keras.layers.Conv1D(128, kernel_size = 4, padding = 'SAME'),
-    keras.layers.Conv1D(64, kernel_size = 1, padding = 'SAME'),
     keras.layers.MaxPool1D(2),
     keras.layers.Dropout(0.3),
     keras.layers.BatchNormalization(),
     keras.layers.Conv1D(256, kernel_size = 2, padding = 'SAME'),
     keras.layers.Conv1D(256, kernel_size = 2, padding = 'SAME'),
-    keras.layers.Conv1D(128, kernel_size = 1, padding = 'SAME'),
-    keras.layers.MaxPool1D(2),
-    keras.layers.Conv1D(512, kernel_size = 2, padding = 'SAME'),
-    keras.layers.Conv1D(512, kernel_size = 2, padding = 'SAME'),
-    keras.layers.Conv1D(128, kernel_size = 1, padding = 'SAME'),
-    keras.layers.MaxPool1D(2),
     keras.layers.Flatten(),
     keras.layers.Dense(256, activation = 'relu'),
     keras.layers.Dense(128, activation = 'relu'),

@@ -196,7 +196,6 @@ def generate_data_slices():
     source_paths = [
         'data/sources/data1.asc',
         'data/sources/data2.csv',
-        'data/sources/data3.csv',
         'data/sources/data4.csv',
         'data/sources/data5.csv',
         'data/sources/data6.csv',
@@ -206,9 +205,8 @@ def generate_data_slices():
         'data/sources/data10.csv',
         'data/sources/data11.csv'
     ]
-    source_separators = [';', ',', ',', ',', ',', ',', ',', ',', ',', ',', ',']
+    source_separators = [';', ',', ',', ',', ',', ',', ',', ',', ',', ',']
     source_encoding = [
-        'latin1',
         'latin1',
         'latin1',
         'latin1',

@@ -194,14 +194,15 @@ def generate_data_slices():
 
     # set the list of source data to be used
     source_paths = [
-        'data/sources/nz_data1.csv',
-        'data/sources/nz_data3.csv',
-        'data/sources/nz_data5.csv',
-        'data/sources/nz_data6.csv',
-        'data/sources/gr_data1.asc'
+        'data/sources/data1.asc',
+        'data/sources/data2.csv',
+        'data/sources/data3.csv',
+        'data/sources/data4.csv',
+        'data/sources/data5.csv',
+        'data/sources/data6.csv'
     ]
-    source_separators = [',', ',', ',', ',', ';']
-    source_encoding = [None, None, None, None, 'latin1']
+    source_separators = [';', ',', ',', ',', ',', ',']
+    source_encoding = ['latin1', None, None, None, None, None]
 
     # set the file name counter
     counter_total = 0

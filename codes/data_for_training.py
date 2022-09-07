@@ -8,10 +8,10 @@ import shutil
 # set constants
 
 # set size of the data sample
-INT_SAMPLE_ROW_COUNT = 50
+INT_SAMPLE_ROW_COUNT = 10
 
 # set maximum number of slice files
-INT_MAXIMUM_SLICE_COUNT = 120000
+INT_MAXIMUM_SLICE_COUNT = 500000
 
 # set path to output files
 STR_PATH_SLICE_FILES = 'data/output/slices/'
@@ -80,7 +80,7 @@ def generate_slice(p_data):
     slice = p_data.iloc[start_row:(start_row + INT_SAMPLE_ROW_COUNT), :]
 
     # generate random number of columns based on the data size
-    col_count = random.randint(1, data_size[1])
+    col_count = random.randint(int(data_size[1] / 2), data_size[1])
 
     # generate a list of column indexes to use
     col_indexes = random.sample(range(data_size[1]), col_count)
@@ -199,10 +199,27 @@ def generate_data_slices():
         'data/sources/data3.csv',
         'data/sources/data4.csv',
         'data/sources/data5.csv',
-        'data/sources/data6.csv'
+        'data/sources/data6.csv',
+        'data/sources/data7.csv',
+        'data/sources/data8.csv',
+        'data/sources/data9.csv',
+        'data/sources/data10.csv',
+        'data/sources/data11.csv'
     ]
-    source_separators = [';', ',', ',', ',', ',', ',']
-    source_encoding = ['latin1', None, None, None, None, None]
+    source_separators = [';', ',', ',', ',', ',', ',', ',', ',', ',', ',', ',']
+    source_encoding = [
+        'latin1',
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None
+    ]
 
     # set the file name counter
     counter_total = 0
@@ -251,8 +268,8 @@ def generate_data_slices():
             counter_total += 1
 
             # insert safety fuse
-            if (counter_file - 1) % 20000 == 0 and (counter_file - 1) > 0:
-                # break the loop at 20k files
+            if (counter_file - 1) % 50000 == 0 and (counter_file - 1) > 0:
+                # break the loop at specific number of files
                 break
 # END - generate_data_slices ---------------------------------------------------
 

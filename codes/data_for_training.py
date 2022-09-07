@@ -209,7 +209,7 @@ def generate_data_slices():
     source_separators = [';', ',', ',', ',', ',', ',', ',', ',', ',', ',', ',']
     source_encoding = [
         'latin1',
-        None,
+        'latin1',
         None,
         None,
         None,

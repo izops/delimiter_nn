@@ -73,7 +73,7 @@ def generate_slice(p_data):
     else:
         # generate a random row index to start from based on the data size
         start_row = random.randint(
-            INT_SAMPLE_ROW_COUNT,
+            0,
             data_size[0] - INT_SAMPLE_ROW_COUNT
         )
 

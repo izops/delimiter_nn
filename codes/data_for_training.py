@@ -210,15 +210,15 @@ def generate_data_slices():
     source_encoding = [
         'latin1',
         'latin1',
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None
+        'latin1',
+        'latin1',
+        'latin1',
+        'latin1',
+        'latin1',
+        'latin1',
+        'latin1',
+        'latin1',
+        'latin1'
     ]
 
     # set the file name counter

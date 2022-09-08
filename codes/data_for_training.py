@@ -7,6 +7,9 @@ import shutil
 
 # set constants
 
+# set size of the output dataset
+INT_TOTAL_ROW_COUNT = 500
+
 # set size of the data sample
 INT_SAMPLE_ROW_COUNT = 10
 
@@ -220,12 +223,15 @@ def generate_data_slices():
         'latin1'
     ]
 
+    # get number of available source files
+    count_sources = len(source_paths)
+
     # set the file name counter
     counter_total = 0
 
     for source_index in range(len(source_paths)):
         # insert safety fuse
-        if counter_total == INT_MAXIMUM_SLICE_COUNT:
+        if counter_total > (INT_TOTAL_ROW_COUNT / INT_SAMPLE_ROW_COUNT):
             break
 
         # add log output
@@ -266,8 +272,13 @@ def generate_data_slices():
             counter_file += 1
             counter_total += 1
 
+            print('Total: ' + str(counter_total))
+            print('Files from source ' + str(source_index) + ' - ' + str(counter_file))
+
             # insert safety fuse
-            if (counter_file - 1) % 50000 == 0 and (counter_file - 1) > 0:
+            if counter_file > (
+                INT_TOTAL_ROW_COUNT / INT_SAMPLE_ROW_COUNT
+            ) / count_sources:
                 # break the loop at specific number of files
                 break
 # END - generate_data_slices ---------------------------------------------------

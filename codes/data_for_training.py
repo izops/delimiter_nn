@@ -8,13 +8,10 @@ import shutil
 # set constants
 
 # set size of the output dataset
-INT_TOTAL_ROW_COUNT = 500
+INT_TOTAL_ROW_COUNT = 5000000
 
 # set size of the data sample
 INT_SAMPLE_ROW_COUNT = 10
-
-# set maximum number of slice files
-INT_MAXIMUM_SLICE_COUNT = 500000
 
 # set path to output files
 STR_PATH_SLICE_FILES = 'data/output/slices/'
@@ -270,10 +267,7 @@ def generate_data_slices():
 
             # increment counters
             counter_file += 1
-            counter_total += 1
-
-            print('Total: ' + str(counter_total))
-            print('Files from source ' + str(source_index) + ' - ' + str(counter_file))
+            counter_total += 1 
 
             # insert safety fuse
             if counter_file > (
@@ -299,12 +293,12 @@ def create_single_training_data():
 
     # append all files together
     file_index = 0
-    blnContinue = True
 
     # output log message
     print('Appending slice and label files to a single data and slice file')
 
-    while blnContinue:
+	# read all slice and labels data and write it into a new text file
+    while file_index < INT_TOTAL_ROW_COUNT / INT_SAMPLE_ROW_COUNT:
         try:
             # read data slice
             read_data = open('data/output/slices/' + str(file_index) + '.slices')
@@ -329,8 +323,10 @@ def create_single_training_data():
             # next slice
             file_index += 1
         except:
-            print('All files were read')
-            blnContinue = False
+			# next slice
+            file_index += 1
+			
+    print('All files were read')
 
     # close the files
     data_file.close()

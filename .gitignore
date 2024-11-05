@@ -141,5 +141,7 @@ cython_debug/
 *.asc
 *.csv
 *.txt
-
-trained_model/cnn
+trained_model/*
+!trained_model/.keep
+*.npy
+data/*

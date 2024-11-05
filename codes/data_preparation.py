@@ -53,7 +53,28 @@ def flstReadData(
     return lstData
 
 def flstListifyRow(pstrRow, zero_pad = True, required_length = 100):
+    '''
+    flstListifyRow - prepares string input to the form where each character is
+        a separate list item with its respective ASCII value. It zero-pads
+        the list to the required length (zero in ASCII corresponds to NULL).
+        Zero-padding is dependent on a separate function, flstZeroPad
+
+    Inputs:
+        pstrRow - string that should be converted to a list of ASCII codes
+        zero_pad - if set to True, the function will keep the required lenght
+            of the output list. In case the length of the list does not reach
+            required length, the remaining length is supplemented with zeros
+        required_length - the length at which the string will be cut off, and
+            upto which it will be zero-padded
+
+    Outputs:
+        List of ASCII values converted from the input string, each value
+        representing a separate character. If zero-padding is selected, the list
+        is complemented with zeros at the indexes where its lenght doesn't reach
+        the required length
+    '''
     assert type(pstrRow) == str, 'Not a string, can\'t continue'
+    assert required_length > 0, 'The output must have positive length'
 
     # remove the line breaks from the string
     strProcessed = pstrRow.replace('\n', '')
